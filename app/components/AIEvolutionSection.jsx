@@ -73,7 +73,7 @@ export default function AIEvolutionSection() {
                   Like Now
                 </h2>
 
-                <button className="group mt-10 border border-white px-8 py-4 text-sm font-semibold uppercase tracking-wider transition hover:bg-red-800 hover:text-white hover:border-red-800">
+                <button className="group mt-10 border border-white px-8 py-4 text-[13px] font-semibold uppercase tracking-wider transition hover:bg-red-800 hover:text-white hover:border-red-800">
                   View how we&apos;ve helped top companies win with AI
                 </button>
               </div>
