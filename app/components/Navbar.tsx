@@ -307,20 +307,22 @@ export default function Navbar() {
 
         {/* Panel */}
         <div
-          className={`absolute left-0 top-0 h-[750px] w-[360px] max-w-[85vw] bg-white shadow-2xl flex flex-col justify-between transition-transform duration-300 ease-in-out rounded-r-2xl overflow-hidden ${
+          className={`absolute left-0 top-0 h-full w-[360px] max-w-[85vw] bg-white shadow-2xl flex flex-col justify-between transition-transform duration-300 ease-in-out ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
+          {/* Close button at top right outer edge */}
+          <button
+            aria-label="Close menu"
+            onClick={closeSidebar}
+            className="absolute top-0 left-full flex h-12 w-12 items-center justify-center bg-[#C00000] text-white hover:bg-[#A30000] transition-colors z-50 shadow-md"
+          >
+            <X size={24} strokeWidth={2.5} className="text-white" />
+          </button>
+
           {/* Content Scroll Container */}
           <div className="relative flex-1 overflow-y-auto px-7 pt-7 pb-6">
-            {/* Close button at top right edge */}
-            <button
-              aria-label="Close menu"
-              onClick={closeSidebar}
-              className="absolute top-0 right-0 flex h-11 w-11 items-center justify-center bg-red-600 text-white hover:bg-red-700 transition-colors"
-            >
-              <X size={22} strokeWidth={2.2} />
-            </button>
+
 
             {/* Top Branding Section */}
             <div className="mb-8 flex items-center gap-3">
