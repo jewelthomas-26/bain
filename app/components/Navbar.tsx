@@ -381,7 +381,7 @@ export default function Navbar() {
                   {topNav.map((item) => (
                     <div key={item.label} className="flex items-center">
                       <button className="group inline-flex items-center gap-1.5 hover:text-red-600 transition-colors">
-                        <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
+                        <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600 text-[11px] uppercase">
                           {item.label}
                         </span>
                         {item.hasDropdown && (
@@ -395,7 +395,7 @@ export default function Navbar() {
                   <div className="flex items-center">
                     <button className="group inline-flex items-center gap-2 text-gray-900 hover:text-red-600 transition-colors">
                       <Globe size={15} className="text-red-600 shrink-0" />
-                      <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
+                      <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600 text-[11px]">
                         GLOBAL | ENGLISH
                       </span>
                       <FilledArrow direction="right" size={7} className="text-red-600" />
