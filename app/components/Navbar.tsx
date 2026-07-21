@@ -352,14 +352,14 @@ export default function Navbar() {
             {!sidebarSubmenu && (
               <>
                 {/* Main Navigation Items */}
-                <nav className="flex flex-col gap-5">
+                <nav className="flex flex-col gap-5 ml-10">
                   {mainNav.map((item) => {
                     const hasArrow = item.items !== null || item.label === "Careers";
                     return (
                       <div key={item.label} className="flex items-center">
                         <button
                           onClick={() => item.items && setSidebarSubmenu(item.label)}
-                          className="group inline-flex items-center gap-1.5 text-left text-[16px] font-semibold text-gray-900 hover:text-red-600 transition-colors"
+                          className="group inline-flex items-center gap-1.5 text-left text-[13px] font-semibold text-gray-900 hover:text-red-600 transition-colors"
                         >
                           <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
                             {item.label}
