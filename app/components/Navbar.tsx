@@ -307,7 +307,7 @@ export default function Navbar() {
 
         {/* Panel */}
         <div
-          className={`absolute left-0 top-0 h-full w-[360px] max-w-[85vw] bg-white shadow-2xl flex flex-col justify-between transition-transform duration-300 ease-in-out ${
+          className={`absolute left-0 top-0 h-60% w-[360px] max-w-[85vw] bg-white shadow-2xl flex flex-col justify-between transition-transform duration-300 ease-in-out ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -408,7 +408,7 @@ export default function Navbar() {
                   <div className="flex items-center">
                     <button className="group inline-flex items-center gap-2 text-gray-900 hover:text-red-600 transition-colors">
                       <Folder size={15} className="text-red-600 shrink-0" />
-                      <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
+                      <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600 font-medium text-[11px] ">
                         SAVED ITEMS
                       </span>
                       <FilledArrow direction="right" size={7} className="text-red-600" />
