@@ -36,8 +36,14 @@ const topNav = [
 ];
 
 // Small filled triangle used everywhere a dropdown/expand indicator is needed.
-// direction: "down" | "up" | "right" | "left"
-function FilledArrow({ direction = "down", size = 9, className = "" }) {
+interface FilledArrowProps {
+  direction?: "down" | "up" | "right" | "left";
+  size?: number;
+  className?: string;
+}
+
+// Small filled triangle used everywhere a dropdown/expand indicator is needed.
+function FilledArrow({ direction = "down", size = 9, className = "" }: FilledArrowProps) {
   const rotation =
     direction === "down"
       ? "rotate-0"
@@ -61,8 +67,8 @@ function FilledArrow({ direction = "down", size = 9, className = "" }) {
 }
 
 // Splits a flat list of strings into up to `maxCols` columns for the mega-menu layout.
-function toColumns(items, maxCols = 4, perCol = 6) {
-  const cols = [];
+function toColumns(items: string[], maxCols = 4, perCol = 6) {
+  const cols: string[][] = [];
   for (let i = 0; i < items.length; i += perCol) {
     cols.push(items.slice(i, i + perCol));
   }
@@ -73,11 +79,11 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [showTopBar, setShowTopBar] = useState(true);
-  const [openDropdown, setOpenDropdown] = useState(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   // Sidebar state
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [sidebarSubmenu, setSidebarSubmenu] = useState(null); // label of mainNav item being drilled into
+  const [sidebarSubmenu, setSidebarSubmenu] = useState<string | null>(null); // label of mainNav item being drilled into
 
   const lastScrollY = useRef(0);
 
@@ -182,10 +188,6 @@ export default function Navbar() {
 
         {/* ---------- Main Nav ---------- */}
         <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-4">
-          {/* Left cluster: hamburger + logo + nav links, all grouped together
-              (previously the nav links were a separate flex child, which made
-              `justify-between` push them out toward the middle of the header
-              instead of sitting right next to the logo). */}
           <div className="flex items-center gap-10">
             <div className="flex items-center gap-6">
               <button
@@ -197,7 +199,6 @@ export default function Navbar() {
               </button>
 
               <Link href="/" className="relative block h-9 w-[190px]">
-                {/* Place your two logo files inside /public/logo/ */}
                 <Image
                   src={isWhite ? "/logo/logo_red_bain.svg" : "/logo/logo_white-bain.svg"}
                   alt="Bain & Company"
@@ -266,13 +267,6 @@ export default function Navbar() {
               className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 overflow-hidden rounded-b-2xl bg-white shadow-xl"
               onMouseEnter={() => setOpenDropdown(item.label)}
             >
-              {/* Panel is capped at max-w-7xl (same width as the nav container)
-                  and centered — NOT full viewport width. Layout is stacked:
-                  heading on its own row, then the columns below it, both
-                  starting at the same left edge (px-8 matches the nav row).
-                  rounded-b-2xl + overflow-hidden on this wrapper clips both the
-                  white panel AND the red bar below into the same curved
-                  bottom-left/bottom-right corners. */}
               <div className="relative px-8 pt-6 pb-10">
                 <h3 className="mb-8 text-[26px] font-semibold leading-[1] text-gray-900">
                   {item.label}
@@ -295,7 +289,7 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* Bottom red bar — inherits the rounded corners from the parent */}
+              {/* Bottom red bar */}
               <div className="h-[6px] w-full bg-red-600" />
             </div>
           );
@@ -309,80 +303,115 @@ export default function Navbar() {
         }`}
       >
         {/* Backdrop */}
-        <div className="absolute inset-0 bg-black/40" onClick={closeSidebar} />
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" onClick={closeSidebar} />
 
         {/* Panel */}
         <div
-          className={`absolute left-0 top-0 h-full w-full max-w-[390px] bg-white shadow-xl transition-transform duration-300 ease-in-out ${
+          className={`absolute left-0 top-0 h-full w-[360px] max-w-[85vw] bg-white shadow-2xl flex flex-col justify-between transition-transform duration-300 ease-in-out rounded-r-2xl overflow-hidden ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
-          {/* Close button */}
-          <button
-            aria-label="Close menu"
-            onClick={closeSidebar}
-            className="absolute -right-11 top-0 flex h-11 w-11 items-center justify-center bg-red-600 text-white hover:bg-red-700"
-          >
-            <X size={20} strokeWidth={2} />
-          </button>
+          {/* Content Scroll Container */}
+          <div className="relative flex-1 overflow-y-auto px-7 pt-7 pb-6">
+            {/* Close button at top right edge */}
+            <button
+              aria-label="Close menu"
+              onClick={closeSidebar}
+              className="absolute top-0 right-0 flex h-11 w-11 items-center justify-center bg-red-600 text-white hover:bg-red-700 transition-colors"
+            >
+              <X size={22} strokeWidth={2.2} />
+            </button>
 
-          <div className="h-full overflow-y-auto px-8 py-8">
+            {/* Top Branding Section */}
+            <div className="mb-8 flex items-center gap-3">
+              {/* Three vertical red bars */}
+              <div className="flex gap-[3px] items-center text-red-600">
+                <span className="inline-block w-[3.5px] h-6 bg-red-600 rounded-full" />
+                <span className="inline-block w-[3.5px] h-6 bg-red-600 rounded-full" />
+                <span className="inline-block w-[3.5px] h-6 bg-red-600 rounded-full" />
+              </div>
+
+              {/* Logo Image */}
+              <Link href="/" onClick={closeSidebar} className="relative block h-6 w-36">
+                <Image
+                  src="/logo/logo_red_bain.svg"
+                  alt="Bain & Company"
+                  fill
+                  priority
+                  className="object-contain object-left"
+                />
+              </Link>
+
+              {/* Red Circle Arrow Icon */}
+              <div className="flex h-5 w-5 items-center justify-center rounded-full border border-red-600 text-red-600 shrink-0">
+                <FilledArrow direction="right" size={6} className="text-red-600 ml-[1px]" />
+              </div>
+            </div>
+
             {/* ---- Root view ---- */}
             {!sidebarSubmenu && (
               <>
-                <Link
-                  href="/"
-                  className="mb-8 flex items-center gap-2 text-lg font-bold uppercase tracking-wide text-red-600"
-                >
-                  <span className="text-xl leading-none">|||</span>
-                  Bain &amp; Company
-                </Link>
-
+                {/* Main Navigation Items */}
                 <nav className="flex flex-col gap-5">
-                  {mainNav.map((item) => (
-                    <button
-                      key={item.label}
-                      onClick={() => item.items && setSidebarSubmenu(item.label)}
-                      className="group flex items-center justify-between text-left text-[17px] font-medium text-gray-800 hover:text-red-600"
-                    >
-                      <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
-                        {item.label}
-                      </span>
-                      {item.items && <FilledArrow direction="right" size={10} />}
-                    </button>
-                  ))}
+                  {mainNav.map((item) => {
+                    const hasArrow = item.items !== null || item.label === "Careers";
+                    return (
+                      <div key={item.label} className="flex items-center">
+                        <button
+                          onClick={() => item.items && setSidebarSubmenu(item.label)}
+                          className="group inline-flex items-center gap-1.5 text-left text-[16px] font-semibold text-gray-900 hover:text-red-600 transition-colors"
+                        >
+                          <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
+                            {item.label}
+                          </span>
+                          {hasArrow && (
+                            <FilledArrow direction="right" size={8} className="text-red-600" />
+                          )}
+                        </button>
+                      </div>
+                    );
+                  })}
                 </nav>
 
+                {/* Horizontal Divider */}
                 <div className="my-6 h-px w-full bg-gray-200" />
 
-                <nav className="flex flex-col gap-5">
+                {/* Secondary / Lower Navigation Items */}
+                <nav className="flex flex-col gap-4 text-[13px] font-bold uppercase tracking-wider text-gray-900">
                   {topNav.map((item) => (
-                    <button
-                      key={item.label}
-                      className="group flex items-center justify-between text-left text-[13px] font-semibold uppercase tracking-wide text-gray-700 hover:text-red-600"
-                    >
-                      <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
-                        {item.label}
-                      </span>
-                      {item.hasDropdown && <FilledArrow direction="right" size={9} />}
-                    </button>
+                    <div key={item.label} className="flex items-center">
+                      <button className="group inline-flex items-center gap-1.5 hover:text-red-600 transition-colors">
+                        <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
+                          {item.label}
+                        </span>
+                        {item.hasDropdown && (
+                          <FilledArrow direction="right" size={7} className="text-red-600" />
+                        )}
+                      </button>
+                    </div>
                   ))}
 
-                  <button className="group flex items-center gap-1.5 text-left text-[13px] font-semibold uppercase tracking-wide text-red-600 hover:text-red-700">
-                    <Globe size={14} />
-                    <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
-                      Global | English
-                    </span>
-                    <FilledArrow direction="right" size={9} />
-                  </button>
+                  {/* Global | English */}
+                  <div className="flex items-center">
+                    <button className="group inline-flex items-center gap-2 text-gray-900 hover:text-red-600 transition-colors">
+                      <Globe size={15} className="text-red-600 shrink-0" />
+                      <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
+                        GLOBAL | ENGLISH
+                      </span>
+                      <FilledArrow direction="right" size={7} className="text-red-600" />
+                    </button>
+                  </div>
 
-                  <button className="group flex items-center gap-1.5 text-left text-[13px] font-semibold uppercase tracking-wide text-red-600 hover:text-red-700">
-                    <Folder size={14} />
-                    <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
-                      Saved Items
-                    </span>
-                    <FilledArrow direction="right" size={9} />
-                  </button>
+                  {/* Saved Items */}
+                  <div className="flex items-center">
+                    <button className="group inline-flex items-center gap-2 text-gray-900 hover:text-red-600 transition-colors">
+                      <Folder size={15} className="text-red-600 shrink-0" />
+                      <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
+                        SAVED ITEMS
+                      </span>
+                      <FilledArrow direction="right" size={7} className="text-red-600" />
+                    </button>
+                  </div>
                 </nav>
               </>
             )}
@@ -392,22 +421,24 @@ export default function Navbar() {
               <>
                 <button
                   onClick={() => setSidebarSubmenu(null)}
-                  className="mb-6 flex items-center gap-2 text-[13px] font-semibold uppercase tracking-wide text-red-600 hover:text-red-700"
+                  className="mb-6 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-wider text-red-600 hover:text-red-700 transition-colors"
                 >
-                  <FilledArrow direction="left" size={9} />
+                  <FilledArrow direction="left" size={7} className="text-red-600" />
                   Main menu
                 </button>
 
-                <div className="mb-4 h-px w-full bg-gray-200" />
+                <div className="mb-5 h-px w-full bg-gray-200" />
 
-                <h3 className="mb-4 text-[17px] font-semibold text-gray-900">{activeSidebarSubmenu.label}</h3>
+                <h3 className="mb-5 text-[17px] font-bold text-gray-900">
+                  {activeSidebarSubmenu.label}
+                </h3>
 
                 <nav className="flex flex-col gap-4">
-                  {activeSidebarSubmenu.items.map((sub) => (
+                  {activeSidebarSubmenu.items?.map((sub) => (
                     <a
                       key={sub}
                       href="#"
-                      className="group flex items-center text-[15px] text-gray-700 hover:text-red-600"
+                      className="group inline-flex items-center text-[15px] font-medium text-gray-800 hover:text-red-600 transition-colors"
                     >
                       <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
                         {sub}
@@ -418,6 +449,9 @@ export default function Navbar() {
               </>
             )}
           </div>
+
+          {/* Bottom Solid Red Strip */}
+          <div className="h-6 w-full bg-red-600 shrink-0 rounded-br-2xl" />
         </div>
       </div>
     </>

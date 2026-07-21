@@ -61,11 +61,11 @@ export default function AIEvolutionSection() {
           <div className="absolute inset-0 flex items-end pb-16">
             <div className="mx-auto w-full max-w-7xl px-8">
               <div className="max-w-xl text-white">
-                <p className="mb-6 text-xl md:text-2xl font-semibold leading-snug">
+                <p className="mb-6 text-xl md:text-[24px] font-semibold leading-snug">
                   Chuck Whitten, Global Head of Bain&rsquo;s digital practices
                 </p>
 
-                <h2 className="text-[42px] sm:text-[56px] md:text-[68px] font-semibold leading-[1.05] tracking-[-1.5px]">
+                <h2 className="text-[42px] sm:text-[56px] md:text-[58px] font-semibold leading-[1.05] tracking-[-1.5px]">
                   AI&rsquo;s Evolution:
                   <br />
                   What Good Looks
