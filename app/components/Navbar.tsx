@@ -307,7 +307,7 @@ export default function Navbar() {
 
         {/* Panel */}
         <div
-          className={`absolute left-0 top-0 h-full w-[360px] max-w-[85vw] bg-white shadow-2xl flex flex-col justify-between transition-transform duration-300 ease-in-out rounded-r-2xl overflow-hidden ${
+          className={`absolute left-0 top-0 h-[750px] w-[360px] max-w-[85vw] bg-white shadow-2xl flex flex-col justify-between transition-transform duration-300 ease-in-out rounded-r-2xl overflow-hidden ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -332,7 +332,7 @@ export default function Navbar() {
               </div>
 
               {/* Logo Image */}
-              <Link href="/" onClick={closeSidebar} className="relative block h-6 w-36">
+              <Link href="/" onClick={closeSidebar} className="relative block h-10 w-46">
                 <Image
                   src="/logo/logo_red_bain.svg"
                   alt="Bain & Company"
