@@ -377,7 +377,7 @@ export default function Navbar() {
                 <div className="my-6 h-px w-full bg-gray-200" />
 
                 {/* Secondary / Lower Navigation Items */}
-                <nav className="flex flex-col gap-4 text-[13px] font-bold uppercase tracking-wider text-gray-900">
+                <nav className="flex flex-col gap-4 text-[13px] font-bold uppercase tracking-wider text-gray-900 ml-10">
                   {topNav.map((item) => (
                     <div key={item.label} className="flex items-center">
                       <button className="group inline-flex items-center gap-1.5 hover:text-red-600 transition-colors">
