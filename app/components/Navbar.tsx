@@ -35,9 +35,14 @@ const topNav = [
   { label: "Contact", hasDropdown: false },
 ];
 
+interface FilledArrowProps {
+  direction?: "down" | "up" | "right" | "left";
+  size?: number;
+  className?: string;
+}
+
 // Small filled triangle used everywhere a dropdown/expand indicator is needed.
-// direction: "down" | "up" | "right" | "left"
-function FilledArrow({ direction = "down", size = 9, className = "" }) {
+function FilledArrow({ direction = "down", size = 9, className = "" }: FilledArrowProps) {
   const rotation =
     direction === "down"
       ? "rotate-0"
@@ -61,8 +66,8 @@ function FilledArrow({ direction = "down", size = 9, className = "" }) {
 }
 
 // Splits a flat list of strings into up to `maxCols` columns for the mega-menu layout.
-function toColumns(items, maxCols = 4, perCol = 6) {
-  const cols = [];
+function toColumns(items: string[], maxCols = 4, perCol = 6) {
+  const cols: string[][] = [];
   for (let i = 0; i < items.length; i += perCol) {
     cols.push(items.slice(i, i + perCol));
   }
@@ -73,11 +78,11 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [showTopBar, setShowTopBar] = useState(true);
-  const [openDropdown, setOpenDropdown] = useState(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   // Sidebar state
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [sidebarSubmenu, setSidebarSubmenu] = useState(null); // label of mainNav item being drilled into
+  const [sidebarSubmenu, setSidebarSubmenu] = useState<string | null>(null); // label of mainNav item being drilled into
 
   const lastScrollY = useRef(0);
 
@@ -130,13 +135,9 @@ export default function Navbar() {
           setOpenDropdown(null);
         }}
         className={`fixed top-0 left-0 z-50 w-full transition-colors duration-300 ${
-  isWhite
-    ? "bg-white shadow-sm"
-    : "bg-transparent border-b border-gray-200/50"
-}`}
-
->
-
+          isWhite ? "bg-white shadow-sm" : "bg-transparent border-b border-gray-200/50"
+        }`}
+      >
         {/* ---------- Top Bar ---------- */}
         <div
           className={`overflow-hidden transition-all duration-300 ease-in-out ${
@@ -162,103 +163,90 @@ export default function Navbar() {
             {/* Right links */}
             <div className="flex items-center gap-6">
               <button
-  className={`flex items-center gap-1.5 uppercase transition-colors ${
-    isWhite ? "text-gray-700" : "text-white"
-  }`}
->
-  <Globe
-    size={13}
-    className={isWhite ? "text-red-600" : "text-white"}
-  />
-
-  <span>Global | English</span>
-
-  <FilledArrow
-    direction="down"
-    className={isWhite ? "text-black" : "text-white"}
-  />
-</button>
+                className={`flex items-center gap-1.5 uppercase transition-colors ${
+                  isWhite ? "text-gray-700" : "text-white"
+                }`}
+              >
+                <Globe size={13} className={isWhite ? "text-red-600" : "text-white"} />
+                <span>Global | English</span>
+                <FilledArrow direction="down" className={isWhite ? "text-black" : "text-white"} />
+              </button>
 
               <button
-  className={`flex items-center gap-1.5 uppercase transition-colors ${
-    isWhite ? "text-gray-700" : "text-white"}
-  `}
->
-  <Folder
-    size={13}
-    className={isWhite ? "text-red-600" : "text-white"}
-  />
-
-  <span>Saved Items</span>
-
-  <FilledArrow
-    direction="down"
-    className={isWhite ? "text-black" : "text-white"}
-  />
-</button>
-
+                className={`flex items-center gap-1.5 uppercase transition-colors ${
+                  isWhite ? "text-gray-700" : "text-white"
+                }`}
+              >
+                <Folder size={13} className={isWhite ? "text-red-600" : "text-white"} />
+                <span>Saved Items</span>
+                <FilledArrow direction="down" className={isWhite ? "text-black" : "text-white"} />
+              </button>
             </div>
           </div>
         </div>
 
         {/* ---------- Main Nav ---------- */}
         <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-4">
-          {/* Left: hamburger + logo */}
-          <div className="flex items-center gap-6">
-            <button
-              aria-label="Open menu"
-              onClick={() => setSidebarOpen(true)}
-              className={`transition-colors hover:text-red-600 ${isWhite ? "text-gray-700" : "text-white"}`}
-            >
-              <Menu size={26} strokeWidth={1.75} />
-            </button>
+          {/* Left cluster: hamburger + logo + nav links, all grouped together
+              (previously the nav links were a separate flex child, which made
+              `justify-between` push them out toward the middle of the header
+              instead of sitting right next to the logo). */}
+          <div className="flex items-center gap-10">
+            <div className="flex items-center gap-6">
+              <button
+                aria-label="Open menu"
+                onClick={() => setSidebarOpen(true)}
+                className={`transition-colors hover:text-red-600 ${isWhite ? "text-gray-700" : "text-white"}`}
+              >
+                <Menu size={26} strokeWidth={1.75} />
+              </button>
 
-            <Link href="/" className="relative block h-9 w-[190px]">
-              {/* Place your two logo files inside /public/logo/ */}
-              <Image
-                src={isWhite ? "/logo/logo_red_bain.svg" : "/logo/logo_white-bain.svg"}
-                alt="Bain & Company"
-                fill
-                priority
-                className="object-contain object-left"
-              />
-            </Link>
-          </div>
+              <Link href="/" className="relative block h-9 w-[190px]">
+                {/* Place your two logo files inside /public/logo/ */}
+                <Image
+                  src={isWhite ? "/logo/logo_red_bain.svg" : "/logo/logo_white-bain.svg"}
+                  alt="Bain & Company"
+                  fill
+                  priority
+                  className="object-contain object-left"
+                />
+              </Link>
+            </div>
 
-          {/* Center: nav links */}
-          <nav className="hidden items-center gap-8 lg:flex">
-            {mainNav.map((item) => {
-              const isOpen = openDropdown === item.label;
-              return (
-                <div
-                  key={item.label}
-                  className="relative"
-                  onMouseEnter={() => item.items && setOpenDropdown(item.label)}
-                >
-                  <button
-                    className={`flex items-center gap-1.5 border-b-2 py-1 text-[15px] font-medium transition-colors hover:text-red-600 hover:border-red-600 ${
-                      isOpen
-                        ? "text-red-600 border-red-600"
-                        : `border-transparent ${isWhite ? "text-gray-800" : "text-white"}`
-                    }`}
+            <nav className="hidden items-center gap-8 lg:flex">
+              {mainNav.map((item) => {
+                const isOpen = openDropdown === item.label;
+                return (
+                  <div
+                    key={item.label}
+                    className="relative"
+                    onMouseEnter={() => item.items && setOpenDropdown(item.label)}
                   >
-                    {item.label}
-                    {item.items && (
-  <FilledArrow
-    direction={isOpen ? "up" : "down"}
-    className={isWhite ? "text-red-600" : "text-white"}
-  />
-)}
-                  </button>
-                </div>
-              );
-            })}
-          </nav>
+                    <button
+                      className={`flex items-center gap-1.5 border-b-2 py-1 text-[15px] font-medium transition-colors hover:text-red-600 hover:border-red-600 ${
+                        isOpen
+                          ? "text-red-600 border-red-600"
+                          : `border-transparent ${isWhite ? "text-gray-800" : "text-white"}`
+                      }`}
+                    >
+                      {item.label}
+                      {item.items && (
+                        <FilledArrow
+                          direction={isOpen ? "up" : "down"}
+                          className={isWhite ? "text-red-600" : "text-white"}
+                        />
+                      )}
+                    </button>
+                  </div>
+                );
+              })}
+            </nav>
+          </div>
 
           {/* Right: explore/search + bookmark */}
           <div className="flex items-center gap-5">
             <button
-              className={`hidden items-center gap-2 text-[14px] tracking-[1px] font-medium sm:flex  ${
+              className={`hidden items-center gap-2 text-[14px] tracking-[1px] font-medium sm:flex ${
                 isWhite ? "text-gray-500" : "text-white"
               }`}
             >
@@ -267,7 +255,7 @@ export default function Navbar() {
             </button>
             <span className={`h-6 w-px ${isWhite ? "bg-gray-300" : "bg-white"}`} />
 
-            <button className={` ${isWhite ? "text-gray-700" : "text-white"}`}>
+            <button className={isWhite ? "text-gray-700" : "text-white"}>
               <Bookmark size={23} strokeWidth={1.75} />
             </button>
           </div>
@@ -279,42 +267,39 @@ export default function Navbar() {
           const columns = toColumns(item.items);
           return (
             <div
-  key={item.label}
-  className="absolute left-1/2 top-full z-50 w-[1360px] -translate-x-1/2 overflow-hidden rounded-b-xl border border-gray-200 bg-white shadow-xl"
-  onMouseEnter={() => setOpenDropdown(item.label)}
->
-  <div className="relative px-10 py-10">
-    <div className="flex gap-24">
-      {/* Left title */}
-      <div className="w-64 shrink-0">
-        <h3 className="text-[40px] font-semibold leading-none text-gray-900">
-          {item.label}
-        </h3>
-      </div>
+              key={item.label}
+              className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 overflow-hidden border border-gray-100 bg-white shadow-xl"
+              onMouseEnter={() => setOpenDropdown(item.label)}
+            >
+              {/* Panel is capped at max-w-7xl (same width as the nav container)
+                  and centered — NOT full viewport width. Layout is stacked:
+                  heading on its own row, then the columns below it, both
+                  starting at the same left edge (px-8 matches the nav row). */}
+              <div className="relative px-8 py-10">
+                <h3 className="mb-8 text-[36px] font-semibold leading-[1] text-gray-900">
+                  {item.label}
+                </h3>
 
-      {/* Columns */}
-      <div className="grid flex-1 grid-cols-4 gap-x-20 gap-y-4">
-        {columns.map((col, ci) => (
-          <div key={ci} className="flex flex-col gap-5">
-            {col.map((sub) => (
-              <a
-                key={sub}
-                href="#"
-                className="text-[18px] font-normal text-gray-800 transition-colors hover:text-red-600"
-              >
-                {sub}
-              </a>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
+                <div className="grid grid-cols-4 gap-x-16 gap-y-4">
+                  {columns.map((col, ci) => (
+                    <div key={ci} className="flex flex-col gap-5">
+                      {col.map((sub) => (
+                        <a
+                          key={sub}
+                          href="#"
+                          className="text-[18px] leading-[1] font-normal text-gray-800 transition-colors hover:text-red-600"
+                        >
+                          {sub}
+                        </a>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-    {/* Bottom Red Bar */}
-    <div className="absolute inset-x-0 bottom-0 h-[8px] bg-red-600" />
-  </div>
-</div>
-
+              {/* Bottom red bar spans the full panel width */}
+              <div className="h-[6px] w-full bg-red-600" />
+            </div>
           );
         })}
       </header>
@@ -415,12 +400,12 @@ export default function Navbar() {
                   Main menu
                 </button>
 
-                <div className="mb-4 h-px w-ful bg-gray-200" />
+                <div className="mb-4 h-px w-full bg-gray-200" />
 
                 <h3 className="mb-4 text-[17px] font-semibold text-gray-900">{activeSidebarSubmenu.label}</h3>
 
                 <nav className="flex flex-col gap-4">
-                  {activeSidebarSubmenu.items.map((sub) => (
+                  {activeSidebarSubmenu.items?.map((sub) => (
                     <a
                       key={sub}
                       href="#"
