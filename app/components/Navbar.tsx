@@ -35,14 +35,9 @@ const topNav = [
   { label: "Contact", hasDropdown: false },
 ];
 
-interface FilledArrowProps {
-  direction?: "down" | "up" | "right" | "left";
-  size?: number;
-  className?: string;
-}
-
 // Small filled triangle used everywhere a dropdown/expand indicator is needed.
-function FilledArrow({ direction = "down", size = 9, className = "" }: FilledArrowProps) {
+// direction: "down" | "up" | "right" | "left"
+function FilledArrow({ direction = "down", size = 9, className = "" }) {
   const rotation =
     direction === "down"
       ? "rotate-0"
@@ -66,8 +61,8 @@ function FilledArrow({ direction = "down", size = 9, className = "" }: FilledArr
 }
 
 // Splits a flat list of strings into up to `maxCols` columns for the mega-menu layout.
-function toColumns(items: string[], maxCols = 4, perCol = 6) {
-  const cols: string[][] = [];
+function toColumns(items, maxCols = 4, perCol = 6) {
+  const cols = [];
   for (let i = 0; i < items.length; i += perCol) {
     cols.push(items.slice(i, i + perCol));
   }
@@ -78,11 +73,11 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [showTopBar, setShowTopBar] = useState(true);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   // Sidebar state
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [sidebarSubmenu, setSidebarSubmenu] = useState<string | null>(null); // label of mainNav item being drilled into
+  const [sidebarSubmenu, setSidebarSubmenu] = useState(null); // label of mainNav item being drilled into
 
   const lastScrollY = useRef(0);
 
@@ -268,15 +263,18 @@ export default function Navbar() {
           return (
             <div
               key={item.label}
-              className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 overflow-hidden border border-gray-100 bg-white shadow-xl"
+              className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 overflow-hidden rounded-b-2xl bg-white shadow-xl"
               onMouseEnter={() => setOpenDropdown(item.label)}
             >
               {/* Panel is capped at max-w-7xl (same width as the nav container)
                   and centered — NOT full viewport width. Layout is stacked:
                   heading on its own row, then the columns below it, both
-                  starting at the same left edge (px-8 matches the nav row). */}
-              <div className="relative px-8 py-10">
-                <h3 className="mb-8 text-[36px] font-semibold leading-[1] text-gray-900">
+                  starting at the same left edge (px-8 matches the nav row).
+                  rounded-b-2xl + overflow-hidden on this wrapper clips both the
+                  white panel AND the red bar below into the same curved
+                  bottom-left/bottom-right corners. */}
+              <div className="relative px-8 pt-6 pb-10">
+                <h3 className="mb-8 text-[26px] font-semibold leading-[1] text-gray-900">
                   {item.label}
                 </h3>
 
@@ -287,7 +285,7 @@ export default function Navbar() {
                         <a
                           key={sub}
                           href="#"
-                          className="text-[18px] leading-[1] font-normal text-gray-800 transition-colors hover:text-red-600"
+                          className="text-[14px] leading-[1] font-normal text-gray-800 transition-colors hover:text-red-600"
                         >
                           {sub}
                         </a>
@@ -297,7 +295,7 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* Bottom red bar spans the full panel width */}
+              {/* Bottom red bar — inherits the rounded corners from the parent */}
               <div className="h-[6px] w-full bg-red-600" />
             </div>
           );
@@ -405,7 +403,7 @@ export default function Navbar() {
                 <h3 className="mb-4 text-[17px] font-semibold text-gray-900">{activeSidebarSubmenu.label}</h3>
 
                 <nav className="flex flex-col gap-4">
-                  {activeSidebarSubmenu.items?.map((sub) => (
+                  {activeSidebarSubmenu.items.map((sub) => (
                     <a
                       key={sub}
                       href="#"
