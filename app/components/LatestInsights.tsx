@@ -5,7 +5,7 @@ import React from "react";
 const insights = [
   {
     id: 1,
-    image: "/insights/43817_strongmomentumininsurance_1440x810.webp",
+    image: "/Insights/43817_strongmomentumininsurance_1440x810.webp",
     category: "Strategy",
     title: "Strong Momentum in Insurance, but Structural Challenges Remain",
     description:
@@ -14,7 +14,7 @@ const insights = [
   },
   {
     id: 2,
-    image: "/insights/gettyimages-2243586375_16-9_alt2.jpg",
+    image: "/Insights/gettyimages-2243586375_16-9_alt2.jpg",
     category: "AI, Insights, and Solutions",
     title: "Is Your AI Transformation Forgetting the Front Line?",
     description:
