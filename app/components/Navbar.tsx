@@ -380,7 +380,7 @@ export default function Navbar() {
                   {topNav.map((item) => (
                     <div key={item.label} className="flex items-center">
                       <button className="group inline-flex items-center gap-1.5 hover:text-red-600 transition-colors">
-                        <span className="border-b-2 border-transparent font-medium pb-0.5 group-hover:border-red-600 text-[11px] uppercase">
+                        <span className="border-b-2 border-transparent font-light pb-0.5 group-hover:border-red-600 text-[11px] uppercase">
                           {item.label}
                         </span>
                         {item.hasDropdown && (
