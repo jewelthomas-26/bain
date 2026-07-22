@@ -45,7 +45,7 @@ export default function Hero() {
   const slide = slides[active];
 
   return (
-    <section className="relative h-[85vh] min-h-[650px] overflow-hidden bg-black text-white">
+    <section className="relative h-[95vh] min-h-[650px] overflow-hidden bg-black text-white">
       {/* Background */}
       <div className="absolute inset-0 overflow-hidden">
         <Image
