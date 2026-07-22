@@ -72,7 +72,7 @@ const LatestInsights = () => {
       />
 
      <div className="pt-5 flex flex-col h-[280px]">
-  <p className="text-red-600 text-sm font-semibold">
+  <p className="text-red-600 text-[12px] font-semibold">
     {item.category}
   </p>
 

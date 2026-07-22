@@ -50,7 +50,7 @@ const slides = [
   },
 ];
 
-function FilledArrowRight({ size = 16, className = "" }) {
+function FilledArrowRight({ size = 14, className = "" }) {
   return (
     <svg
       width={size}
@@ -59,7 +59,7 @@ function FilledArrowRight({ size = 16, className = "" }) {
       fill="currentColor"
       className={className}
     >
-      <path d="M1 7.25H9V5L15 8L9 11V8.75H1V7.25Z" />
+      <path d="M4 2L13 8L4 14V2Z" />
     </svg>
   );
 }
@@ -126,9 +126,8 @@ export default function ClientSuccess() {
           {/* Row 2, Col 1: Read Story (auto-flows under the text block only) */}
           <button className="group inline-flex items-center gap-2 text-red-700 hover:text-red-800 font-semibold">
   Read story
-  <ArrowRight
+  <FilledArrowRight
     size={14}
-    strokeWidth={2.2}
     className="group-hover:translate-x-1 transition-transform"
   />
 </button>
