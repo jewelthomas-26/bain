@@ -81,6 +81,8 @@ const LatestInsights = () => {
               <p className="hidden lg:block mt-4 font-tiempos text-black text-[16px] leading-8">
                 {item.description}
               </p>
+              
+
 
               {/* Footer */}
               <div className="mt-2 lg:mt-auto flex items-center justify-between lg:pt-1 text-[12px] lg:text-[13px] text-gray-500">
@@ -103,10 +105,10 @@ const LatestInsights = () => {
           </div>
         ))}
       </div>
-
+<div className="block lg:hidden mx-1 h-px bg-gray-300"></div>
       {/* Button */}
       <div className="flex justify-center mt-16">
-        <button className="border border-gray-300 text-[13px] px-10 py-4 text-red-700 font-semibold uppercase tracking-wide transition-all duration-300 hover:bg-red-800 hover:text-white hover:border-red-800">
+        <button className="border border-gray-300 text-[13px] px-22 sm:px-10 py-4 text-red-700 font-semibold uppercase tracking-wide transition-all duration-300 hover:bg-red-800 hover:text-white hover:border-red-800">
           See All Insights
         </button>
       </div>
