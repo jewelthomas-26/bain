@@ -135,10 +135,17 @@ const officeColumns: OfficeBlock[][] = [
 
 // Region & language selector data, grouped the same way as the design:
 // Global | North & Latin America | Europe, Middle East, & Africa | Asia & Australia
-type RegionEntry = { country: string; language: string; flag: string; external?: boolean };
+// Region & language selector data, grouped the same way as the design:
+// Global | North & Latin America | Europe, Middle East, & Africa | Asia & Australia
+type RegionEntry = {
+  country: string;
+  language: string;
+  countryCode: string | null;
+  external?: boolean;
+};
 type RegionBlock = { title: string; entries: RegionEntry[] };
 
-const regionLanguageColumns = [
+const regionLanguageColumns: RegionBlock[] = [
   {
     title: "Global",
     entries: [
@@ -459,7 +466,7 @@ export default function Navbar() {
           {langOpen && (
   <div className="absolute left-0 top-full z-50 w-full border-t border-gray-100 bg-white shadow-xl">
     <div className="mx-auto max-w-7xl px-8 pt-8 pb-10">
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-between">
         <h3 className="text-[22px] font-semibold leading-none text-gray-900">
           Select your region and language
         </h3>
@@ -476,9 +483,9 @@ export default function Navbar() {
         {regionLanguageColumns.map((block, ci) => (
           <div
             key={block.title}
-            className={ci > 0 ? "border-l border-gray-200 pl-16 -ml-16" : ""}
+            className={ci > 0 ? "border-l border-gray-200 pl-5 -ml-16" : ""}
           >
-            <h4 className="mb-4 text-[15px] font-bold text-gray-900">{block.title}</h4>
+            <h4 className="mb-4 text-[18px] font-bold text-gray-900">{block.title}</h4>
             <div className="flex flex-col gap-4">
               {block.entries.map((entry) => (
                 
@@ -495,9 +502,9 @@ export default function Navbar() {
                   ) : (
                     <Globe size={16} className="flex-shrink-0 text-gray-500 group-hover:text-red-600" />
                   )}
-                  <span>
+                  <span className="text-[14px]">
                     {entry.country}{" "}
-                    <span className="text-gray-500 group-hover:text-red-600">({entry.language})</span>
+                    <span className="text-gray-500 ">({entry.language})</span>
                   </span>
                   {entry.external && (
                     <ExternalLink size={13} className="text-gray-400 group-hover:text-red-600" />
@@ -514,16 +521,16 @@ export default function Navbar() {
 
           {/* ---------- Saved items empty-state panel ---------- */}
           {savedOpen && (
-            <div className="absolute left-0 top-full z-50 w-full border-t border-gray-100 bg-white shadow-xl">
+            <div className="absolute left-0 top-full z-50 w-full border-t border-gray-200 bg-white shadow-xl">
               <div className="mx-auto flex max-w-7xl flex-col items-center px-8 py-16 text-center">
-                <FolderOpen size={72} strokeWidth={1.5} className="text-gray-400" />
-                <h3 className="mt-6 text-[22px] font-semibold text-gray-500">You have no saved items.</h3>
-                <p className="mt-4 max-w-md text-[15px] text-gray-800">
+                <FolderOpen size={122} strokeWidth={1.5} className="text-gray-300" />
+                <h3 className="mt-6 text-[20px] font-bold text-gray-500">You have no saved items.</h3>
+                <p className="mt-4 max-w-full text-[17px] text-gray-800">
                   Bookmark content that interests you and it will be saved here for you to read or share later.
                 </p>
                 <a
                   href="#"
-                  className="mt-8 inline-flex items-center bg-red-700 px-8 py-3.5 text-[12px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-red-800"
+                  className="mt-8 inline-flex items-center bg-red-700 px-8 py-4.5 text-[12px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-red-800"
                 >
                   Explore Bain Insights
                 </a>
