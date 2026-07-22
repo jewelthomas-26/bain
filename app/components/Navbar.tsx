@@ -343,7 +343,47 @@ export default function Navbar() {
     // Reset the submenu after the close animation finishes
     setTimeout(() => setSidebarSubmenu(null), 300);
   };
+  const officesRef = useRef<HTMLDivElement>(null);
+  const langRef = useRef<HTMLDivElement>(null);
+  const savedRef = useRef<HTMLDivElement>(null);
 
+  // Offices dropdown
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (officesRef.current && !officesRef.current.contains(event.target as Node)) {
+        setOfficesOpen(false);
+      }
+    }
+    if (officesOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [officesOpen]);
+
+  // Language dropdown
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (langRef.current && !langRef.current.contains(event.target as Node)) {
+        setLangOpen(false);
+      }
+    }
+    if (langOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [langOpen]);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (savedRef.current && !savedRef.current.contains(event.target as Node)) {
+        setSavedOpen(false);
+      }
+    }
+    if (savedOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [savedOpen]);
   // Any dropdown/mega-menu currently open, anywhere in the header
   const isAnyDropdownOpen =
     officesOpen || langOpen || savedOpen || openDropdown !== null;
@@ -455,7 +495,7 @@ export default function Navbar() {
 
           {/* ---------- Offices mega-dropdown panel ---------- */}
           {officesOpen && (
-            <div className="absolute left-0 top-full z-50 w-full  bg-white shadow-xl">
+            <div ref={officesRef} className="absolute left-0 top-full z-50 w-full  bg-white shadow-xl">
               <div className="mx-auto max-w-7xl px-8 pt-8 pb-4">
                 <div className="mb-8 flex items-center justify-between">
                   <h3 className="text-[20px] font-semibold leading-none text-gray-900">Offices</h3>
@@ -525,7 +565,7 @@ export default function Navbar() {
 
           {/* ---------- Region & language mega-dropdown panel ---------- */}
           {langOpen && (
-            <div className="absolute left-0 top-full z-50 w-full bg-white shadow-xl">
+            <div ref={langRef} className="absolute left-0 top-full z-50 w-full bg-white shadow-xl">
               <div className="mx-auto max-w-7xl px-8 pt-8 pb-10">
                 <div className="mb-4 flex items-center justify-between">
                   <h3 className="text-[22px] font-semibold leading-none text-gray-900">
@@ -582,7 +622,7 @@ export default function Navbar() {
 
           {/* ---------- Saved items empty-state panel ---------- */}
           {savedOpen && (
-            <div className="absolute left-0 top-full z-50 w-full bg-white shadow-xl">
+            <div ref={savedRef} className="absolute left-0 top-full z-50 w-full bg-white shadow-xl">
               <div className="mx-auto flex max-w-7xl flex-col items-center px-8 py-16 text-center">
                 <FolderOpen size={122} strokeWidth={1.5} className="text-gray-300" />
                 <h3 className="mt-6 text-[20px] font-bold text-gray-500">You have no saved items.</h3>
@@ -601,26 +641,24 @@ export default function Navbar() {
         </div>
 
         {/* ---------- Main Nav ---------- */}
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-8 py-3 sm:py-4">
-          <div className="flex items-center gap-4 sm:gap-10">
-            <div className="flex items-center gap-3 sm:gap-6">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-8 py-3 sm:py-4 w-full">
+          <div className="flex items-center gap-3 sm:gap-10 min-w-0">
+            <div className="flex items-center gap-3 sm:gap-6 shrink-0">
               <button
                 aria-label="Toggle menu"
                 onClick={() => setSidebarOpen((prev) => !prev)}
-                className={`group relative flex items-center justify-center p-1.5 transition-colors hover:text-red-600 ${
-                  isWhite ? "text-gray-700 sm:text-gray-700" : "text-white"
-                }`}
+                className={`group relative flex items-center justify-center p-1.5 transition-colors hover:text-red-600 ${isWhite ? "text-gray-700 sm:text-gray-700" : "text-white"
+                  }`}
               >
                 <div
-                  className={`transition-transform duration-500 ease-in-out transform ${
-                    sidebarOpen ? "-rotate-90 -translate-x-1" : "rotate-0 translate-x-0"
-                  }`}
+                  className={`transition-transform duration-500 ease-in-out transform ${sidebarOpen ? "-rotate-90 -translate-x-1" : "rotate-0 translate-x-0"
+                    }`}
                 >
                   <Menu size={29} strokeWidth={1.75} />
                 </div>
               </button>
 
-              <Link href="/" className="relative block h-7 w-[140px] sm:h-9 sm:w-[190px]">
+              <Link href="/" className="relative block h-7 w-[140px] sm:h-9 sm:w-[190px] shrink-0">
                 <Image
                   src={isWhite ? "/logo/logo_red_bain.svg" : "/logo/logo_white-bain.svg"}
                   alt="Bain & Company"
@@ -667,11 +705,10 @@ export default function Navbar() {
           </div>
 
           {/* Right: explore/search + bookmark */}
-          <div className="flex items-center gap-3 sm:gap-5">
+          <div className="flex items-center gap-3 sm:gap-5 shrink-0">
             <button
-              className={`hidden items-center gap-2 text-[14px] tracking-[1px] font-medium sm:flex ${
-                isWhite ? "text-gray-500" : "text-white"
-              }`}
+              className={`hidden items-center gap-2 text-[14px] tracking-[1px] font-medium sm:flex ${isWhite ? "text-gray-500" : "text-white"
+                }`}
             >
               Explore
               <Search size={23} />
@@ -688,10 +725,10 @@ export default function Navbar() {
               <button className={isWhite ? "text-gray-700" : "text-white"}>
                 <Bookmark size={22} strokeWidth={1.75} className="sm:w-[23px] sm:h-[23px]" />
               </button>
-              <div className="absolute top-full left-1/2 mt-3 -translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-500 z-50">
+              <div className="absolute top-full right-0 sm:left-1/2 mt-3 sm:-translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-500 z-50">
                 <div className="relative bg-black text-white text-xs px-4 py-5 whitespace-nowrap">
                   Save
-                  <div className="absolute left-1/2 -top-2 -translate-x-1/2 w-4 h-4 bg-black rotate-45"></div>
+                  <div className="absolute right-3 sm:left-1/2 -top-2 sm:-translate-x-1/2 w-4 h-4 bg-black rotate-45"></div>
                 </div>
               </div>
             </div>

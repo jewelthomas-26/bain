@@ -111,11 +111,11 @@ export default function ClientSuccess() {
             </div>
           </div>
 
-          {/* Row 1, Col 2: image — stretches to match the height of the
-              text block above (default grid align-items: stretch), so its
-              bottom edge lands exactly on the stat cards' bottom edge. */}
-          <div className="relative">
-            <div className="absolute bottom-0 left-0 right-0 h-[600px]  ">
+          {/* Row 1, Col 2: image — hidden on mobile/tablet, shown from lg up
+              (same as before: default display was block, so "lg:block"
+              keeps desktop identical; "hidden" only takes effect below lg). */}
+          <div className="hidden lg:block relative h-[320px] sm:h-[420px] lg:h-auto min-h-[300px]">
+            <div className="relative lg:absolute inset-0 lg:top-auto lg:bottom-0 h-full lg:h-[600px]">
               <Image
                 key={active}
                 src={slides[active].image}

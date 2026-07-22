@@ -45,9 +45,9 @@ export default function Hero() {
   const slide = slides[active];
 
   return (
-    <section className="relative h-[95vh] min-h-[650px] overflow-hidden bg-black text-white">
+    <section className="relative w-full h-[95vh] min-h-[650px] overflow-hidden bg-black text-white">
       {/* Background */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
         <Image
           src={slide.image}
           alt={slide.title}
@@ -66,20 +66,21 @@ export default function Hero() {
           left edge of "Win with AI" no matter the screen width. A percentage
           margin (e.g. ml-[18%]) drifts relative to a fixed container as the
           viewport resizes, which is what was causing the misalignment. */}
-      <div className="relative z-10 h-full flex items-center">
+      <div className="relative z-10 h-full w-full flex items-center">
         <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
           <div className="max-w-[90%] sm:max-w-lg md:max-w-xl lg:max-w-[600px]">
-            <p className="mb-3 sm:mb-5 text-base sm:text-lg font-semibold">
+            <p className="mb-3 sm:mb-5 text-sm sm:text-lg font-semibold">
               {slide.category}
             </p>
 
             <h1
               className="
-                text-3xl
+                text-2xl
                 sm:text-4xl
                 md:text-5xl
                 lg:text-[58px]
-                leading-[1.15]
+                leading-[1.2]
+                sm:leading-[1.15]
                 font-bold
                 tracking-[1.0px]
               "
@@ -87,18 +88,28 @@ export default function Hero() {
               {slide.title}
             </h1>
 
+            {/*
+              MOBILE: button is left as a normal (non-flex) inline flow, so the
+              long CTA text wraps like a paragraph and the arrow, being an
+              inline-block element right after it in the markup, simply
+              flows onto the end of the last wrapped line — exactly like the
+              reference screenshot.
+
+              DESKTOP (sm and up): switches back to the original flex layout
+              (flex + flex-wrap + items-center + gap-5) so nothing changes
+              there — text and arrow sit side by side with a fixed gap.
+            */}
             <button
               key={slide.id}
               className="
                 group
-                mt-6
+                mt-5
                 sm:mt-8
-                flex
-                flex-wrap
-                items-center
-                gap-3
+                sm:flex
+                sm:flex-wrap
+                sm:items-center
                 sm:gap-5
-                text-xs
+                text-[11px]
                 sm:text-[13px]
                 font-bold
                 tracking-wide
@@ -110,7 +121,11 @@ export default function Hero() {
 
               <span
                 className="
-                  text-2xl
+                  inline-block
+                  ml-2
+                  sm:ml-0
+                  align-middle
+                  text-xl
                   sm:text-4xl
                   leading-none
                   sm:mb-2
@@ -127,22 +142,22 @@ export default function Hero() {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="absolute bottom-0 left-0 z-20 w-full">
-        <div className="relative mx-auto flex max-w-7xl gap-4 overflow-x-auto px-6 sm:px-8 no-scrollbar">
+      <div className="absolute bottom-0 left-0 z-20 w-full overflow-hidden">
+        <div className="relative mx-auto flex w-full max-w-7xl gap-3 sm:gap-4 overflow-x-auto px-6 sm:px-8 no-scrollbar">
           {slides.map((item, index) => (
             <button
               key={item.id}
               onClick={() => setActive(index)}
-              className="relative flex-1 min-w-[140px] pb-6 sm:pb-10 pt-6 sm:pt-8 text-left"
+              className="relative flex-shrink-0 sm:flex-1 min-w-[110px] sm:min-w-[140px] pb-5 sm:pb-10 pt-5 sm:pt-8 text-left"
             >
               {/* Active horizontal line */}
               {active === index && (
-                <div className="absolute top-0 left-0 h-[5px] w-[110px] bg-red-600" />
+                <div className="absolute top-0 left-0 h-[4px] sm:h-[5px] w-[80px] sm:w-[110px] bg-red-600" />
               )}
 
               <p
                 className={`
-                  text-sm
+                  text-xs
                   sm:text-lg
                   font-semibold
                   whitespace-nowrap
@@ -158,7 +173,12 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll Button */}
+      {/*
+        Scroll Button — previously "hidden sm:flex" (fully hidden on mobile).
+        Now shown on mobile too: centered horizontally, smaller circle, no
+        "Scroll" label (label only appears from sm: up). Desktop keeps its
+        original bottom-right position, gap, label, and icon size untouched.
+      */}
       <button
         onClick={() =>
           document.getElementById("next-section")?.scrollIntoView({
@@ -167,26 +187,33 @@ export default function Hero() {
         }
         className="
           absolute
-          bottom-24
+          bottom-3
+          left-1/2
+          -translate-x-1/2
           sm:bottom-6
-          right-4
+          sm:left-auto
           sm:right-6
+          sm:translate-x-0
           z-30
-          hidden
-          sm:flex
+          flex
           flex-col
           items-center
-          gap-3
+          gap-2
+          sm:gap-3
           cursor-pointer
         "
       >
-        <span className="text-[14px] text-white/50">Scroll</span>
+        <span className="hidden sm:block text-[14px] text-white/50">
+          Scroll
+        </span>
 
         <div
           className="
             flex
-            h-10
-            w-10
+            h-8
+            w-8
+            sm:h-10
+            sm:w-10
             items-center
             justify-center
             rounded-full
@@ -194,7 +221,7 @@ export default function Hero() {
             border-white/70
           "
         >
-          <ChevronDown size={28} />
+          <ChevronDown className="w-4 h-4 sm:w-7 sm:h-7" />
         </div>
       </button>
     </section>

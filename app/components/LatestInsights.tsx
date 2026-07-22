@@ -92,10 +92,10 @@ const LatestInsights = () => {
                     <BookmarkIcon size={22} />
                   </button>
 
-                  <div className="absolute bottom-full left-1/2 mb-3 -translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-500 z-10">
+                  <div className="absolute bottom-full right-0 sm:left-1/2 mb-3 sm:-translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-500 z-10">
                     <div className="relative bg-black text-white text-xs px-4 py-5 whitespace-nowrap">
                       Save
-                      <div className="absolute left-1/2 top-12 -translate-x-1/2 w-4 h-4 bg-black rotate-45"></div>
+                      <div className="absolute right-3 sm:left-1/2 top-12 sm:-translate-x-1/2 w-4 h-4 bg-black rotate-45"></div>
                     </div>
                   </div>
                 </div>

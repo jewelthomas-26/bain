@@ -65,7 +65,7 @@ export default function AIEvolutionSection() {
                   Chuck Whitten, Global Head of Bain&rsquo;s digital practices
                 </p>
 
-                <h2 className="text-[42px] sm:text-[56px] md:text-[58px] font-semibold leading-[1.05] tracking-[-1.5px]">
+                <h2 className="text-[30px] sm:text-[48px] md:text-[58px] font-semibold leading-[1.1] tracking-[-1px] sm:tracking-[-1.5px]">
                   AI&rsquo;s Evolution:
                   <br />
                   What Good Looks

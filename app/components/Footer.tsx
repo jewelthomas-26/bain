@@ -31,8 +31,70 @@ const Footer = () => {
   return (
     <footer className="bg-black text-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 py-10 sm:py-12 lg:py-14">
-        {/* Top */}
-       <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10">
+
+        {/* ===================== MOBILE / TABLET (below lg) =====================
+            The screenshot reorders things (subscribe box, then a divider, then
+            the logo, then social icons) in a way that plain responsive classes
+            on the original grid can't express cleanly, so it's its own block,
+            shown only below lg. */}
+        <div className="lg:hidden">
+          <h3 className="text-[18px] leading-8 font-light">
+            Stay ahead in a rapidly changing world. Subscribe to Bain
+            Insights, our monthly look at the critical issues facing global
+            businesses.
+          </h3>
+
+          <input
+            type="email"
+            placeholder="Your email address"
+            className="mt-8 w-full h-12 sm:h-14 bg-[#444] px-5 text-white placeholder:text-white outline-none hover:bg-[#a8a3a3]"
+          />
+
+          <label className="flex items-start gap-3 mt-5 text-[15px]">
+            <input
+              type="checkbox"
+              className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-red-500"
+            />
+            <span className="text-[15px]">
+              <span className="">*</span> I have read and understand{" "}
+              <a
+                href="#"
+                className="underline decoration-red-500 hover:no-underline transition-colors underline-offset-3 text-[15px]"
+              >
+                Bain&rsquo;s Privacy Notice.
+              </a>
+            </span>
+          </label>
+
+          <button className="mt-6 w-full bg-[#d50000] hover:bg-red-800 transition h-12 sm:h-14 font-semibold uppercase text-[13px]">
+            Subscribe
+          </button>
+
+          <div className="border-t border-gray-700 mt-10" />
+
+          <img
+            src="/logo/logo_white-bain.svg"
+            alt="Bain & Company"
+            className="mt-10 h-6"
+          />
+
+          <div className="flex flex-wrap gap-6 sm:gap-7 mt-8 text-2xl">
+            {socialLinks.map(({ Icon, label, hover }) => (
+              <a
+                key={label}
+                href="#"
+                aria-label={label}
+                className={`text-white transition-all duration-200 ${hover}`}
+              >
+                <Icon size={"18px"} />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* ===================== DESKTOP (lg and up) =====================
+            Unchanged from the original markup — only shown at lg+. */}
+        <div className="hidden lg:grid lg:grid-cols-[1.4fr_1fr] gap-10">
           {/* Left */}
           <div>
             <h3 className="max-w-[650px] text-[18px] sm:text-[20px] leading-8 sm:leading-10 font-light">
@@ -64,9 +126,9 @@ const Footer = () => {
 
             <label className="flex items-start gap-3 mt-5 text-[15px] sm:text-[17px]">
               <input
-  type="checkbox"
-  className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-red-500"
-/>
+                type="checkbox"
+                className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-red-500"
+              />
 
               <span className="text-[15px]">
                 <span className="">*</span> I have read and
@@ -97,8 +159,8 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="mt-20 sm:mt-28 lg:mt-32">
-          <div className="flex flex-wrap gap-x-6 sm:gap-x-6 gap-y-3 sm:gap-y-4 text-base sm:text-lg">
+        <div className="mt-8 sm:mt-28 lg:mt-32">
+          <div className="flex flex-col lg:flex-row lg:flex-wrap gap-x-6 sm:gap-x-6 gap-y-3 sm:gap-y-4 text-base sm:text-lg">
             {footerLinks.map((link) => (
               <a
                 key={link}
