@@ -725,10 +725,10 @@ export default function Navbar() {
               <button className={isWhite ? "text-gray-700" : "text-white"}>
                 <Bookmark size={22} strokeWidth={1.75} className="sm:w-[23px] sm:h-[23px]" />
               </button>
-              <div className="absolute top-full right-0 sm:left-1/2 mt-3 sm:-translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-500 z-50">
-                <div className="relative bg-black text-white text-xs px-4 py-5 whitespace-nowrap">
+              <div className="absolute top-full left-1/2 mt-2.5 -translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-300 z-50 pointer-events-none">
+                <div className="relative bg-black text-white text-[12px] px-3 py-3.5 rounded-sm whitespace-nowrap shadow-md">
                   Save
-                  <div className="absolute right-3 sm:left-1/2 -top-2 sm:-translate-x-1/2 w-4 h-4 bg-black rotate-45"></div>
+                  <div className="absolute left-1/2 -top-1 -translate-x-1/2 w-2 h-2 bg-black rotate-45"></div>
                 </div>
               </div>
             </div>

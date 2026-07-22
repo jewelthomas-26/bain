@@ -88,14 +88,14 @@ const LatestInsights = () => {
                 <span>{item.type}</span>
 
                 <div className="relative group/bookmark">
-                  <button className="text-gray-500  transition-colors">
+                  <button className="text-gray-500 hover:text-black transition-colors">
                     <BookmarkIcon size={22} />
                   </button>
 
-                  <div className="absolute bottom-full right-0 sm:left-1/2 mb-3 sm:-translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-500 z-10">
-                    <div className="relative bg-black text-white text-xs px-4 py-5 whitespace-nowrap">
+                  <div className="absolute bottom-full left-1/2 mb-2.5 -translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-300 z-10 pointer-events-none">
+                    <div className="relative bg-black text-white text-[12px] px-3 py-3.5 rounded-sm whitespace-nowrap shadow-md">
                       Save
-                      <div className="absolute right-3 sm:left-1/2 top-12 sm:-translate-x-1/2 w-4 h-4 bg-black rotate-45"></div>
+                      <div className="absolute left-1/2 -bottom-1 -translate-x-1/2 w-2 h-2 bg-black rotate-45"></div>
                     </div>
                   </div>
                 </div>
