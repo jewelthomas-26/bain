@@ -93,7 +93,7 @@ const LatestInsights = () => {
                   </button>
 
                   <div className="absolute bottom-full left-1/2 mb-2.5 -translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-300 z-10 pointer-events-none">
-                    <div className="relative bg-black text-white text-[12px] px-3 py-3.5 rounded-sm whitespace-nowrap shadow-md">
+                    <div className="relative bg-black text-white text-[12px] px-3 py-3.5  whitespace-nowrap shadow-md">
                       Save
                       <div className="absolute left-1/2 -bottom-1 -translate-x-1/2 w-2 h-2 bg-black rotate-45"></div>
                     </div>
