@@ -102,7 +102,7 @@ const LatestInsights = () => {
       {/* Button */}
       <div className="flex justify-center mt-16">
         <button className="border border-gray-300 text-[13px] px-10 py-4 text-red-700 font-semibold uppercase tracking-wide transition-all duration-300 hover:bg-red-800 hover:text-white hover:border-red-800">
-          See All Insight
+          See All Insights
         </button>
       </div>
     </section>
