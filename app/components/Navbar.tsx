@@ -377,7 +377,7 @@ export default function Navbar() {
       >
         {/* ---------- Top Bar ---------- */}
         <div
-          className={`relative overflow-visible transition-all duration-300 ease-in-out ${showTopBar ? "max-h-12 opacity-100" : "max-h-0 opacity-0 pointer-events-none"
+          className={`relative overflow-visible transition-all duration-300 ease-in-out hidden sm:block ${showTopBar ? "max-h-12 opacity-100" : "max-h-0 opacity-0 pointer-events-none"
             } ${isWhite ? "border-b border-gray-200" : ""}`}
         >
           <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-2.5 text-[11px] font-semibold tracking-wide">
@@ -601,18 +601,26 @@ export default function Navbar() {
         </div>
 
         {/* ---------- Main Nav ---------- */}
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-4">
-          <div className="flex items-center gap-10">
-            <div className="flex items-center gap-6">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-8 py-3 sm:py-4">
+          <div className="flex items-center gap-4 sm:gap-10">
+            <div className="flex items-center gap-3 sm:gap-6">
               <button
-                aria-label="Open menu"
-                onClick={() => setSidebarOpen(true)}
-                className={`transition-colors hover:text-red-600 ${isWhite ? "text-gray-700" : "text-white"}`}
+                aria-label="Toggle menu"
+                onClick={() => setSidebarOpen((prev) => !prev)}
+                className={`group relative flex items-center justify-center p-1.5 transition-colors hover:text-red-600 ${
+                  isWhite ? "text-gray-700 sm:text-gray-700" : "text-white"
+                }`}
               >
-                <Menu size={26} strokeWidth={1.75} />
+                <div
+                  className={`transition-transform duration-500 ease-in-out transform ${
+                    sidebarOpen ? "-rotate-90 -translate-x-1" : "rotate-0 translate-x-0"
+                  }`}
+                >
+                  <Menu size={29} strokeWidth={1.75} />
+                </div>
               </button>
 
-              <Link href="/" className="relative block h-9 w-[190px]">
+              <Link href="/" className="relative block h-7 w-[140px] sm:h-9 sm:w-[190px]">
                 <Image
                   src={isWhite ? "/logo/logo_red_bain.svg" : "/logo/logo_white-bain.svg"}
                   alt="Bain & Company"
@@ -659,19 +667,26 @@ export default function Navbar() {
           </div>
 
           {/* Right: explore/search + bookmark */}
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-3 sm:gap-5">
             <button
-              className={`hidden items-center gap-2 text-[14px] tracking-[1px] font-medium sm:flex ${isWhite ? "text-gray-500" : "text-white"
-                }`}
+              className={`hidden items-center gap-2 text-[14px] tracking-[1px] font-medium sm:flex ${
+                isWhite ? "text-gray-500" : "text-white"
+              }`}
             >
               Explore
               <Search size={23} />
             </button>
-            <span className={`h-6 w-px ${isWhite ? "bg-gray-300" : "bg-white"}`} />
+
+            {/* Mobile Search Icon */}
+            <button className={`block sm:hidden ${isWhite ? "text-gray-700" : "text-white"}`}>
+              <Search size={22} strokeWidth={1.75} />
+            </button>
+
+            <span className={`h-5 sm:h-6 w-px ${isWhite ? "bg-gray-300" : "bg-white/60"}`} />
 
             <div className="relative group/bookmark">
               <button className={isWhite ? "text-gray-700" : "text-white"}>
-                <Bookmark size={23} strokeWidth={1.75} />
+                <Bookmark size={22} strokeWidth={1.75} className="sm:w-[23px] sm:h-[23px]" />
               </button>
               <div className="absolute top-full left-1/2 mt-3 -translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-500 z-50">
                 <div className="relative bg-black text-white text-xs px-4 py-5 whitespace-nowrap">
