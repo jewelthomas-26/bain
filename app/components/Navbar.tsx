@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, Search, Bookmark, Globe, Folder, X } from "lucide-react";
+import { Menu, Search, Bookmark, Globe, Folder, FolderOpen, X, ExternalLink } from "lucide-react";
 
 // Main nav items with dropdown sub-items (edit as needed)
 const mainNav = [
@@ -34,6 +34,152 @@ const topNav = [
   { label: "Subscribe", hasDropdown: false },
   { label: "Contact", hasDropdown: false },
 ];
+
+// Office locations grouped into the column layout shown in the design:
+// column 1 = North & Latin America
+// column 2 = Europe & Africa (top) + Middle East (bottom)
+// column 3 = Asia & Australia
+type OfficeBlock = { title: string; offices: string[] };
+
+const officeColumns: OfficeBlock[][] = [
+  [
+    {
+      title: "North & Latin America",
+      offices: [
+        "Atlanta",
+        "Austin",
+        "Bogota",
+        "Boston",
+        "Buenos Aires",
+        "Chicago",
+        "Dallas",
+        "Denver",
+        "Houston",
+        "Los Angeles",
+        "Mexico City",
+        "Minneapolis",
+        "Monterrey",
+        "Montreal",
+        "New York",
+        "Rio de Janeiro",
+        "San Francisco",
+        "Santiago",
+        "São Paulo",
+        "Seattle",
+        "Silicon Valley",
+        "Toronto",
+        "Washington, DC",
+      ],
+    },
+  ],
+  [
+    {
+      title: "Europe & Africa",
+      offices: [
+        "Amsterdam",
+        "Athens",
+        "Berlin",
+        "Brussels",
+        "Copenhagen",
+        "Dusseldorf",
+        "Frankfurt",
+        "Helsinki",
+        "Istanbul",
+        "Johannesburg",
+        "Kyiv",
+        "Lisbon",
+        "London",
+        "Madrid",
+        "Milan",
+        "Munich",
+        "Oslo",
+        "Paris",
+        "Rome",
+        "Stockholm",
+        "Vienna",
+        "Warsaw",
+        "Zurich",
+      ],
+    },
+    {
+      title: "Middle East",
+      offices: ["Doha", "Dubai", "Riyadh"],
+    },
+  ],
+  [
+    {
+      title: "Asia & Australia",
+      offices: [
+        "Bangkok",
+        "Beijing",
+        "Bengaluru",
+        "Brisbane",
+        "Ho Chi Minh City",
+        "Hong Kong",
+        "Jakarta",
+        "Kuala Lumpur",
+        "Manila",
+        "Melbourne",
+        "Mumbai",
+        "New Delhi",
+        "Perth",
+        "Seoul",
+        "Shanghai",
+        "Singapore",
+        "Sydney",
+        "Tokyo",
+      ],
+    },
+  ],
+];
+
+// Region & language selector data, grouped the same way as the design:
+// Global | North & Latin America | Europe, Middle East, & Africa | Asia & Australia
+type RegionEntry = { country: string; language: string; flag: string; external?: boolean };
+type RegionBlock = { title: string; entries: RegionEntry[] };
+
+const regionLanguageColumns = [
+  {
+    title: "Global",
+    entries: [
+      { country: "Global", language: "English", countryCode: null }, // null -> shows Globe icon
+    ],
+  },
+  {
+    title: "North & Latin America",
+    entries: [
+      { country: "Brazil", language: "Português", countryCode: "br" },
+      { country: "Argentina", language: "Español", countryCode: "ar" },
+      { country: "Canada", language: "Français", countryCode: "ca" },
+      { country: "Chile", language: "Español", countryCode: "cl" },
+      { country: "Colombia", language: "Español", countryCode: "co" },
+    ],
+  },
+  {
+    title: "Europe, Middle East, & Africa",
+    entries: [
+      { country: "France", language: "Français", countryCode: "fr" },
+      { country: "DACH Region", language: "Deutsch", countryCode: "de" },
+      { country: "Italy", language: "Italiano", countryCode: "it" },
+      { country: "Spain", language: "Español", countryCode: "es" },
+      { country: "Greece", language: "Elliniká", countryCode: "gr" },
+    ],
+  },
+  {
+    title: "Asia & Australia",
+    entries: [
+      { country: "China", language: "中文版", countryCode: "cn", external: true },
+      { country: "Korea", language: "한국어", countryCode: "kr" },
+      { country: "Japan", language: "日本語", countryCode: "jp" },
+    ],
+  },
+];
+
+// Splits an alphabetical list into two vertical columns (top-to-bottom, not round-robin)
+function splitHalf(items: string[]) {
+  const half = Math.ceil(items.length / 2);
+  return [items.slice(0, half), items.slice(half)];
+}
 
 // Small filled triangle used everywhere a dropdown/expand indicator is needed.
 interface FilledArrowProps {
@@ -81,6 +227,13 @@ export default function Navbar() {
   const [showTopBar, setShowTopBar] = useState(true);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
+  // Offices mega-dropdown (top bar)
+  const [officesOpen, setOfficesOpen] = useState(false);
+  // Region & language mega-dropdown (top bar)
+  const [langOpen, setLangOpen] = useState(false);
+  // Saved items mega-dropdown (top bar)
+  const [savedOpen, setSavedOpen] = useState(false);
+
   // Sidebar state
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarSubmenu, setSidebarSubmenu] = useState<string | null>(null); // label of mainNav item being drilled into
@@ -116,6 +269,15 @@ export default function Navbar() {
     };
   }, [sidebarOpen]);
 
+  // Close the Offices panel whenever the top bar hides or the mouse leaves the header
+  useEffect(() => {
+    if (!showTopBar) {
+      setOfficesOpen(false);
+      setLangOpen(false);
+      setSavedOpen(false);
+    }
+  }, [showTopBar]);
+
   const closeSidebar = () => {
     setSidebarOpen(false);
     // Reset the submenu after the close animation finishes
@@ -141,49 +303,233 @@ export default function Navbar() {
       >
         {/* ---------- Top Bar ---------- */}
         <div
-          className={`overflow-hidden transition-all duration-300 ease-in-out ${
-            showTopBar ? "max-h-12 opacity-100" : "max-h-0 opacity-0"
+          className={`relative overflow-visible transition-all duration-300 ease-in-out ${
+            showTopBar ? "max-h-12 opacity-100" : "max-h-0 opacity-0 pointer-events-none"
           } ${isWhite ? "border-b border-gray-200" : ""}`}
         >
           <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-2.5 text-[11px] font-semibold tracking-wide">
             {/* Left links */}
             <div className="flex items-center gap-6">
-              {topNav.map((item) => (
-                <button
-                  key={item.label}
-                  className={`flex items-center gap-1 uppercase transition-colors hover:text-red-600 ${
-                    isWhite ? "text-gray-700" : "text-white"
-                  }`}
-                >
-                  {item.label}
-                  {item.hasDropdown && <FilledArrow direction="down" />}
-                </button>
-              ))}
+              {topNav.map((item) => {
+                if (item.label === "Offices") {
+                  const isOpen = officesOpen;
+                  return (
+                    <button
+                      key={item.label}
+                      onClick={() => {
+                        setOfficesOpen((o) => !o);
+                        setLangOpen(false);
+                        setSavedOpen(false);
+                      }}
+                      className={`flex items-center gap-1 uppercase transition-colors hover:text-red-600 ${
+                        isOpen ? "text-red-600" : isWhite ? "text-gray-700" : "text-white"
+                      }`}
+                    >
+                      {item.label}
+                      <FilledArrow direction={isOpen ? "up" : "down"} />
+                    </button>
+                  );
+                }
+                return (
+                  <button
+                    key={item.label}
+                    className={`flex items-center gap-1 uppercase transition-colors hover:text-red-600 ${
+                      isWhite ? "text-gray-700" : "text-white"
+                    }`}
+                  >
+                    {item.label}
+                    {item.hasDropdown && <FilledArrow direction="down" />}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Right links */}
             <div className="flex items-center gap-6 ">
               <button
+                onClick={() => {
+                  setLangOpen((o) => !o);
+                  setOfficesOpen(false);
+                  setSavedOpen(false);
+                }}
                 className={`flex items-center gap-1.5 uppercase transition-colors ${
-                  isWhite ? "text-gray-700" : "text-white"
+                  langOpen ? "text-red-600" : isWhite ? "text-gray-700" : "text-white"
                 }`}
               >
-                <Globe size={15} className={isWhite ? "text-red-600" : "text-white"} />
+                <Globe size={15} className={langOpen ? "text-red-600" : isWhite ? "text-red-600" : "text-white"} />
                 <span className="hover:text-red-500">Global | English</span>
-                <FilledArrow direction="down" className={isWhite ? "text-black" : "text-white"} />
+                <FilledArrow
+                  direction={langOpen ? "up" : "down"}
+                  className={langOpen ? "text-red-600" : isWhite ? "text-black" : "text-white"}
+                />
               </button>
 
               <button
+                onClick={() => {
+                  setSavedOpen((o) => !o);
+                  setOfficesOpen(false);
+                  setLangOpen(false);
+                }}
                 className={`flex items-center gap-1.5 uppercase transition-colors ${
-                  isWhite ? "text-gray-700" : "text-white"
+                  savedOpen ? "text-red-600" : isWhite ? "text-gray-700" : "text-white"
                 }`}
               >
-                <Folder size={15} className={isWhite ? "text-red-600" : "text-white"} />
+                <Folder size={15} className={savedOpen ? "text-red-600" : isWhite ? "text-red-600" : "text-white"} />
                 <span className="hover:text-red-500">Saved Items</span>
-                <FilledArrow direction="down" className={isWhite ? "text-black" : "text-white"} />
+                <FilledArrow
+                  direction={savedOpen ? "up" : "down"}
+                  className={savedOpen ? "text-red-600" : isWhite ? "text-black" : "text-white"}
+                />
               </button>
             </div>
           </div>
+
+          {/* ---------- Offices mega-dropdown panel ---------- */}
+        {officesOpen && (
+  <div className="absolute left-0 top-full z-50 w-full border-t border-gray-100 bg-white shadow-xl">
+    <div className="mx-auto max-w-7xl px-8 pt-8 pb-4">
+      <div className="mb-8 flex items-center justify-between">
+        <h3 className="text-[20px] font-semibold leading-none text-gray-900">Offices</h3>
+        <button
+          onClick={() => setOfficesOpen(false)}
+          className="flex items-center gap-1.5 text-[13px] font-light tracking-wide text-red-700 transition-colors"
+        >
+          Close
+          <X size={22} strokeWidth={1.5} />
+        </button>
+      </div>
+
+      <div className="grid grid-cols-3 gap-x-16">
+        {officeColumns.map((blocks, ci) => (
+          <div
+            key={ci}
+            className={`flex flex-col gap-10 ${
+              ci > 0 ? "border-l border-gray-200 pl-16 -ml-16" : ""
+            }`}
+          >
+            {blocks.map((block) => {
+              const [colA, colB] = splitHalf(block.offices);
+              return (
+                <div key={block.title}>
+                  <h4 className="mb-4 text-[17px] font-bold text-gray-900">{block.title}</h4>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+                    <div className="flex flex-col gap-3">
+                      {colA.map((city) => (
+                        
+                         <a key={city}
+                          href="#"
+                          className="text-[16px] font-normal text-gray-800 tracking-wide transition-colors hover:text-red-600"
+                        >
+                          {city}
+                        </a>
+                      ))}
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      {colB.map((city) => (
+                        
+                         <a key={city}
+                          href="#"
+                          className="text-[16px] font-normal text-gray-800 transition-colors hover:text-red-600"
+                        >
+                          {city}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-10">
+        
+         <a href="#"
+          className="text-[16px] font-normal tracking-wide text-red-700 transition-colors"
+        >
+          See all offices
+        </a>
+      </div>
+    </div>
+  </div>
+)}
+
+          {/* ---------- Region & language mega-dropdown panel ---------- */}
+          {langOpen && (
+  <div className="absolute left-0 top-full z-50 w-full border-t border-gray-100 bg-white shadow-xl">
+    <div className="mx-auto max-w-7xl px-8 pt-8 pb-10">
+      <div className="mb-8 flex items-center justify-between">
+        <h3 className="text-[22px] font-semibold leading-none text-gray-900">
+          Select your region and language
+        </h3>
+        <button
+          onClick={() => setLangOpen(false)}
+          className="flex items-center gap-1.5 text-[13px] font-medium text-gray-400 transition-colors hover:text-gray-700"
+        >
+          Close
+          <X size={16} strokeWidth={2} />
+        </button>
+      </div>
+
+      <div className="grid grid-cols-4 gap-x-16">
+        {regionLanguageColumns.map((block, ci) => (
+          <div
+            key={block.title}
+            className={ci > 0 ? "border-l border-gray-200 pl-16 -ml-16" : ""}
+          >
+            <h4 className="mb-4 text-[15px] font-bold text-gray-900">{block.title}</h4>
+            <div className="flex flex-col gap-4">
+              {block.entries.map((entry) => (
+                
+                 <a key={entry.country}
+                  href="#"
+                  className="group inline-flex items-center gap-2.5 text-[14px] font-normal text-gray-800 transition-colors hover:text-red-600"
+                >
+                  {entry.countryCode ? (
+                    <img
+                      src={`https://flagcdn.com/w40/${entry.countryCode.toLowerCase()}.png`}
+                      alt={`${entry.country} flag`}
+                      className="h-[14px] w-[20px] flex-shrink-0 rounded-[1px] object-cover shadow-sm"
+                    />
+                  ) : (
+                    <Globe size={16} className="flex-shrink-0 text-gray-500 group-hover:text-red-600" />
+                  )}
+                  <span>
+                    {entry.country}{" "}
+                    <span className="text-gray-500 group-hover:text-red-600">({entry.language})</span>
+                  </span>
+                  {entry.external && (
+                    <ExternalLink size={13} className="text-gray-400 group-hover:text-red-600" />
+                  )}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+
+          {/* ---------- Saved items empty-state panel ---------- */}
+          {savedOpen && (
+            <div className="absolute left-0 top-full z-50 w-full border-t border-gray-100 bg-white shadow-xl">
+              <div className="mx-auto flex max-w-7xl flex-col items-center px-8 py-16 text-center">
+                <FolderOpen size={72} strokeWidth={1.5} className="text-gray-400" />
+                <h3 className="mt-6 text-[22px] font-semibold text-gray-500">You have no saved items.</h3>
+                <p className="mt-4 max-w-md text-[15px] text-gray-800">
+                  Bookmark content that interests you and it will be saved here for you to read or share later.
+                </p>
+                <a
+                  href="#"
+                  className="mt-8 inline-flex items-center bg-red-700 px-8 py-3.5 text-[12px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-red-800"
+                >
+                  Explore Bain Insights
+                </a>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* ---------- Main Nav ---------- */}
