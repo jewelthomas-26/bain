@@ -168,7 +168,7 @@ export default function Navbar() {
                   isWhite ? "text-gray-700" : "text-white"
                 }`}
               >
-                <Globe size={13} className={isWhite ? "text-red-600" : "text-white"} />
+                <Globe size={15} className={isWhite ? "text-red-600" : "text-white"} />
                 <span className="hover:text-red-500">Global | English</span>
                 <FilledArrow direction="down" className={isWhite ? "text-black" : "text-white"} />
               </button>
@@ -178,7 +178,7 @@ export default function Navbar() {
                   isWhite ? "text-gray-700" : "text-white"
                 }`}
               >
-                <Folder size={13} className={isWhite ? "text-red-600" : "text-white"} />
+                <Folder size={15} className={isWhite ? "text-red-600" : "text-white"} />
                 <span className="hover:text-red-500">Saved Items</span>
                 <FilledArrow direction="down" className={isWhite ? "text-black" : "text-white"} />
               </button>
@@ -334,7 +334,7 @@ export default function Navbar() {
               </div>
 
               {/* Logo Image */}
-              <Link href="/" onClick={closeSidebar} className="relative block h-10 w-46">
+              <Link href="/" onClick={closeSidebar} className="relative block h-10 w-50  ml-3">
                 <Image
                   src="/logo/logo_red_bain.svg"
                   alt="Bain & Company"
@@ -344,10 +344,7 @@ export default function Navbar() {
                 />
               </Link>
 
-              {/* Red Circle Arrow Icon */}
-              <div className="flex h-5 w-5 items-center justify-center rounded-full border border-red-600 text-red-600 shrink-0">
-                <FilledArrow direction="right" size={6} className="text-red-600 ml-[1px]" />
-              </div>
+              
             </div>
 
             {/* ---- Root view ---- */}
@@ -367,7 +364,7 @@ export default function Navbar() {
                             {item.label}
                           </span>
                           {hasArrow && (
-                            <FilledArrow direction="right" size={8} className="text-red-600" />
+                            <FilledArrow direction="right" size={10} className="text-red-700" />
                           )}
                         </button>
                       </div>
@@ -387,7 +384,7 @@ export default function Navbar() {
                           {item.label}
                         </span>
                         {item.hasDropdown && (
-                          <FilledArrow direction="right" size={7} className="text-red-600" />
+                          <FilledArrow direction="right" size={10} className="text-red-700" />
                         )}
                       </button>
                     </div>
@@ -400,7 +397,7 @@ export default function Navbar() {
                       <span className="border-b-2 border-transparent pb-0.5 font-medium  group-hover:border-red-600 text-[11px]">
                         GLOBAL | ENGLISH
                       </span>
-                      <FilledArrow direction="right" size={7} className="text-red-600" />
+                      <FilledArrow direction="right" size={10} className="text-red-700" />
                     </button>
                   </div>
 
@@ -411,7 +408,7 @@ export default function Navbar() {
                       <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600 font-medium text-[11px] ">
                         SAVED ITEMS
                       </span>
-                      <FilledArrow direction="right" size={7} className="text-red-600" />
+                      <FilledArrow direction="right" size={10} className="text-red-700" />
                     </button>
                   </div>
                 </nav>
