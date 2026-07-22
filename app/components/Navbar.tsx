@@ -374,7 +374,7 @@ export default function Navbar() {
 
                         >
 
-                          <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
+                          <span className="border-b-1 border-transparent pb-0.5 group-hover:border-red-600">
 
                             {item.label}
 
@@ -414,7 +414,7 @@ export default function Navbar() {
 
                       <button className="group inline-flex items-center gap-1.5 hover:text-red-600 transition-colors">
 
-                        <span className="border-b-2 border-transparent font-light pb-0.5 group-hover:border-red-600 text-[11px] uppercase">
+                        <span className="border-b-1 border-transparent font-light pb-0.5 group-hover:border-red-600 text-[11px] uppercase">
 
                           {item.label}
 
@@ -438,11 +438,11 @@ export default function Navbar() {
 
                   <div className="flex items-center">
 
-                    <button className="group inline-flex items-center gap-2 text-gray-900 hover:text-red-600 transition-colors">
+                    <button className="group inline-flex items-center gap-2 text-gray-900 hover:text-red-600 transition-colors border-b-1 border-transparent hover:border-red-600">
 
                       <Globe size={15} className="text-red-600 shrink-0" />
 
-                      <span className="border-b-2 border-transparent pb-0.5 font-medium  group-hover:border-red-600 text-[11px]">
+                      <span className="  pb-0.5 font-medium  text-[11px]">
 
                         GLOBAL | ENGLISH
 
@@ -460,11 +460,11 @@ export default function Navbar() {
 
                   <div className="flex items-center">
 
-                    <button className="group inline-flex items-center gap-2 text-gray-900 hover:text-red-600 transition-colors">
+                    <button className="group inline-flex items-center gap-2 text-gray-900 hover:text-red-600 transition-colors border-b-1 border-transparent hover:border-red-600">
 
                       <Folder size={15} className="text-red-600 shrink-0" />
 
-                      <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600 font-medium text-[11px] ">
+                      <span className=" pb-0.5  font-medium text-[11px] ">
 
                         SAVED ITEMS
 
@@ -550,7 +550,7 @@ export default function Navbar() {
     </div>
 
     {/* Bottom Red Strip */}
-    <div className="h-6 w-full bg-red-600" />
+    <div className="h-4 w-full bg-red-700" />
   </div>
 </div>
       </div>
