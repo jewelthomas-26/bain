@@ -305,153 +305,254 @@ export default function Navbar() {
         {/* Backdrop */}
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" onClick={closeSidebar} />
 
-        {/* Panel */}
-        <div
-          className={`absolute left-0 top-0 h-60% w-[360px] max-w-[85vw] bg-white shadow-2xl flex flex-col justify-between transition-transform duration-300 ease-in-out ${
-            sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+        {/* Panel Wrapper */}
+<div
+  className={`absolute left-0 top-0 h-[70%] w-[360px] max-w-[85vw] transition-transform duration-300 ease-in-out ${
+    sidebarOpen ? "translate-x-0" : "-translate-x-full"
+  }`}
+>
+  {/* Close button */}
+  <button
+    aria-label="Close menu"
+    onClick={closeSidebar}
+    className="absolute top-0 left-full z-[70] flex h-12 w-12 items-center justify-center bg-[#C00000] text-white shadow-md transition-colors hover:bg-[#A30000]"
+  >
+    <X size={24} strokeWidth={2.5} />
+  </button>
+
+  {/* Actual Panel */}
+  <div className="flex h-full w-full flex-col justify-between overflow-hidden rounded-br-3xl bg-white shadow-2xl">
+    {/* Content Scroll Container */}
+    <div className="relative flex-1 overflow-y-auto px-7 pt-7 pb-6">
+
+      {/* Top Branding Section */}
+      <div className="mb-8 flex items-center gap-3">
+        <div className="flex items-center gap-[3px] text-red-600">
+          <span className="inline-block h-6 w-[3.5px] rounded-full bg-red-600" />
+          <span className="inline-block h-6 w-[3.5px] rounded-full bg-red-600" />
+          <span className="inline-block h-6 w-[3.5px] rounded-full bg-red-600" />
+        </div>
+
+        <Link
+          href="/"
+          onClick={closeSidebar}
+          className="relative ml-3 block h-10 w-50"
         >
-          {/* Close button at top right outer edge */}
-          <button
-            aria-label="Close menu"
-            onClick={closeSidebar}
-            className="absolute top-0 left-full flex h-12 w-12 items-center justify-center bg-[#C00000] text-white hover:bg-[#A30000] transition-colors z-50 shadow-md"
-          >
-            <X size={24} strokeWidth={2.5} className="text-white" />
-          </button>
+          <Image
+            src="/logo/logo_red_bain.svg"
+            alt="Bain & Company"
+            fill
+            priority
+            className="object-contain object-left"
+          />
+        </Link>
+      </div>
 
-          {/* Content Scroll Container */}
-          <div className="relative flex-1 overflow-y-auto px-7 pt-7 pb-6">
+      {/* ---- Root view ---- */}
 
-
-            {/* Top Branding Section */}
-            <div className="mb-8 flex items-center gap-3">
-              {/* Three vertical red bars */}
-              <div className="flex gap-[3px] items-center text-red-600">
-                <span className="inline-block w-[3.5px] h-6 bg-red-600 rounded-full" />
-                <span className="inline-block w-[3.5px] h-6 bg-red-600 rounded-full" />
-                <span className="inline-block w-[3.5px] h-6 bg-red-600 rounded-full" />
-              </div>
-
-              {/* Logo Image */}
-              <Link href="/" onClick={closeSidebar} className="relative block h-10 w-50  ml-3">
-                <Image
-                  src="/logo/logo_red_bain.svg"
-                  alt="Bain & Company"
-                  fill
-                  priority
-                  className="object-contain object-left"
-                />
-              </Link>
-
-              
-            </div>
-
-            {/* ---- Root view ---- */}
             {!sidebarSubmenu && (
+
               <>
+
                 {/* Main Navigation Items */}
+
                 <nav className="flex flex-col gap-5 ml-10">
+
                   {mainNav.map((item) => {
+
                     const hasArrow = item.items !== null || item.label === "Careers";
+
                     return (
+
                       <div key={item.label} className="flex items-center">
+
                         <button
+
                           onClick={() => item.items && setSidebarSubmenu(item.label)}
+
                           className="group inline-flex items-center gap-1.5 text-left text-[13px] font-semibold text-gray-900 hover:text-red-600 transition-colors"
+
                         >
+
                           <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
+
                             {item.label}
+
                           </span>
+
                           {hasArrow && (
+
                             <FilledArrow direction="right" size={10} className="text-red-700" />
+
                           )}
+
                         </button>
+
                       </div>
+
                     );
+
                   })}
+
                 </nav>
+
+
 
                 {/* Horizontal Divider */}
+
                 <div className="my-6 h-px w-full bg-gray-200" />
 
+
+
                 {/* Secondary / Lower Navigation Items */}
+
                 <nav className="flex flex-col gap-4 text-[13px] font-bold uppercase tracking-wider text-gray-900 ml-10">
+
                   {topNav.map((item) => (
+
                     <div key={item.label} className="flex items-center">
+
                       <button className="group inline-flex items-center gap-1.5 hover:text-red-600 transition-colors">
+
                         <span className="border-b-2 border-transparent font-light pb-0.5 group-hover:border-red-600 text-[11px] uppercase">
+
                           {item.label}
+
                         </span>
+
                         {item.hasDropdown && (
+
                           <FilledArrow direction="right" size={10} className="text-red-700" />
+
                         )}
+
                       </button>
+
                     </div>
+
                   ))}
 
+
+
                   {/* Global | English */}
+
                   <div className="flex items-center">
+
                     <button className="group inline-flex items-center gap-2 text-gray-900 hover:text-red-600 transition-colors">
+
                       <Globe size={15} className="text-red-600 shrink-0" />
+
                       <span className="border-b-2 border-transparent pb-0.5 font-medium  group-hover:border-red-600 text-[11px]">
+
                         GLOBAL | ENGLISH
+
                       </span>
+
                       <FilledArrow direction="right" size={10} className="text-red-700" />
+
                     </button>
+
                   </div>
+
+
 
                   {/* Saved Items */}
+
                   <div className="flex items-center">
+
                     <button className="group inline-flex items-center gap-2 text-gray-900 hover:text-red-600 transition-colors">
+
                       <Folder size={15} className="text-red-600 shrink-0" />
+
                       <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600 font-medium text-[11px] ">
+
                         SAVED ITEMS
+
                       </span>
+
                       <FilledArrow direction="right" size={10} className="text-red-700" />
+
                     </button>
+
                   </div>
+
                 </nav>
+
               </>
+
             )}
 
+
+
             {/* ---- Submenu (drill-down) view ---- */}
+
             {sidebarSubmenu && activeSidebarSubmenu && (
+
               <>
+
                 <button
+
                   onClick={() => setSidebarSubmenu(null)}
+
                   className="mb-6 inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-wider text-red-600 hover:text-red-700 transition-colors"
+
                 >
+
                   <FilledArrow direction="left" size={7} className="text-red-600" />
+
                   Main menu
+
                 </button>
+
+
 
                 <div className="mb-5 h-px w-full bg-gray-200" />
 
+
+
                 <h3 className="mb-5 text-[17px] font-bold text-gray-900">
+
                   {activeSidebarSubmenu.label}
+
                 </h3>
 
-                <nav className="flex flex-col gap-4">
-                  {activeSidebarSubmenu.items?.map((sub) => (
-                    <a
-                      key={sub}
-                      href="#"
-                      className="group inline-flex items-center text-[15px] font-medium text-gray-800 hover:text-red-600 transition-colors"
-                    >
-                      <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
-                        {sub}
-                      </span>
-                    </a>
-                  ))}
-                </nav>
-              </>
-            )}
-          </div>
 
-          {/* Bottom Solid Red Strip */}
-          <div className="h-6 w-full bg-red-600 shrink-0 rounded-br-2xl" />
-        </div>
+
+                <nav className="flex flex-col gap-4">
+
+                  {activeSidebarSubmenu.items?.map((sub) => (
+
+                    <a
+
+                      key={sub}
+
+                      href="#"
+
+                      className="group inline-flex items-center text-[15px] font-medium text-gray-800 hover:text-red-600 transition-colors"
+
+                    >
+
+                      <span className="border-b-2 border-transparent pb-0.5 group-hover:border-red-600">
+
+                        {sub}
+
+                      </span>
+
+                    </a>
+
+                  ))}
+
+                </nav>
+
+              </>
+
+            )}
+    </div>
+
+    {/* Bottom Red Strip */}
+    <div className="h-6 w-full bg-red-600" />
+  </div>
+</div>
       </div>
     </>
   );
