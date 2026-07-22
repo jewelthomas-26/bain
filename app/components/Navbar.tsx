@@ -219,7 +219,7 @@ export default function Navbar() {
                     onMouseEnter={() => item.items && setOpenDropdown(item.label)}
                   >
                     <button
-                      className={`flex items-center gap-1.5 border-b-2 py-1 text-[15px] font-medium transition-colors hover:text-red-600 hover:border-red-600 ${
+                      className={`flex items-center gap-1.5 border-b-1 py-1 text-[15px] font-medium transition-colors hover:text-red-600 hover:border-red-600 ${
                         isOpen
                           ? "text-red-600 border-red-600"
                           : `border-transparent ${isWhite ? "text-gray-800" : "text-white"}`
