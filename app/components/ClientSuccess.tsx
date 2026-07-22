@@ -102,7 +102,7 @@ export default function ClientSuccess() {
               {slides[active].stats.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-100 p-8 w-full sm:w-56 text-black"
+                  className="bg-gray-200 p-8 w-55 sm:w-56 text-black"
                 >
                   <h3 className="text-5xl font-normal">{item.number}</h3>
                   <p className="mt-4 text-gray-700 leading-7">{item.text}</p>
