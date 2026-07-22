@@ -495,7 +495,7 @@ export default function Navbar() {
 
           {/* ---------- Offices mega-dropdown panel ---------- */}
           {officesOpen && (
-            <div ref={officesRef} className="absolute left-0 top-full z-50 w-full  bg-white shadow-xl">
+            <div ref={officesRef} className="absolute left-0 top-full z-50 w-full max-h-188 overflow-y-auto bg-white shadow-xl">
               <div className="mx-auto max-w-7xl px-8 pt-8 pb-4">
                 <div className="mb-8 flex items-center justify-between">
                   <h3 className="text-[20px] font-semibold leading-none text-gray-900">Offices</h3>

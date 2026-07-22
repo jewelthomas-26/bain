@@ -69,13 +69,13 @@ export default function Hero() {
       <div className="relative z-10 h-full w-full flex items-center">
         <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
           <div className="max-w-[90%] sm:max-w-lg md:max-w-xl lg:max-w-[600px]">
-            <p className="mb-3 sm:mb-5 text-sm sm:text-lg font-semibold">
+            <p className="mb-3 sm:mb-5 text-[16px] sm:text-lg font-semibold">
               {slide.category}
             </p>
 
             <h1
               className="
-                text-2xl
+                text-[37px]
                 sm:text-4xl
                 md:text-5xl
                 lg:text-[58px]
@@ -109,7 +109,7 @@ export default function Hero() {
                 sm:flex-wrap
                 sm:items-center
                 sm:gap-5
-                text-[11px]
+                text-[14px]
                 sm:text-[13px]
                 font-bold
                 tracking-wide
@@ -125,9 +125,10 @@ export default function Hero() {
                   ml-2
                   sm:ml-0
                   align-middle
-                  text-xl
+                  text-[35px]
                   sm:text-4xl
                   leading-none
+                  mb-2
                   sm:mb-2
                   transition-transform
                   duration-300
@@ -143,7 +144,7 @@ export default function Hero() {
 
       {/* Bottom Navigation */}
       <div className="absolute bottom-0 left-0 z-20 w-full overflow-hidden">
-        <div className="relative mx-auto flex w-full max-w-7xl gap-3 sm:gap-4 overflow-x-auto px-6 sm:px-8 no-scrollbar">
+        <div className="relative mx-auto flex w-full max-w-7xl gap-3 sm:gap-4 overflow-x-auto  px-6 sm:px-8 no-scrollbar">
           {slides.map((item, index) => (
             <button
               key={item.id}
@@ -163,6 +164,7 @@ export default function Hero() {
                   whitespace-nowrap
                   hover:text-white
                   transition
+                  
                   ${active === index ? "text-white" : "text-gray-300"}
                 `}
               >
@@ -189,6 +191,7 @@ export default function Hero() {
           absolute
           bottom-3
           left-1/2
+          hidden sm:block 
           -translate-x-1/2
           sm:bottom-6
           sm:left-auto
@@ -201,6 +204,7 @@ export default function Hero() {
           gap-2
           sm:gap-3
           cursor-pointer
+          
         "
       >
         <span className="hidden sm:block text-[14px] text-white/50">

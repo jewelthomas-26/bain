@@ -30,8 +30,8 @@ export default function ChampionSection() {
         lg:px-8
         "
       >
-        {/* Image */}
-        <div className="order-2 w-full lg:order-1">
+        {/* Image - desktop only (mobile has its own inline copy below) */}
+        <div className="hidden w-full lg:order-1 lg:block">
           <img
             src="/champion/champion.jpg"
             alt="Champion"
@@ -78,7 +78,20 @@ export default function ChampionSection() {
             challenges.
           </p>
 
-          {/* Image sits here on mobile via order-2 above; question follows */}
+          {/* Image - mobile only, shorter height, sits right after the paragraph */}
+          <div className="mt-6 w-full lg:hidden">
+            <img
+              src="/champion/champion.jpg"
+              alt="Champion"
+              className="
+              h-40
+              w-full
+              object-cover
+              sm:h-56
+              "
+            />
+          </div>
+
           <div className="mt-6 flex items-baseline gap-2 sm:mt-8">
             <p className="text-[16px] font-semibold text-black sm:text-[18px]">
               1. What is your industry?
