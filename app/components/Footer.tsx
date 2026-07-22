@@ -54,7 +54,7 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Your email address"
-                className="flex-1 h-12 sm:h-14 bg-[#444] px-5 text-white placeholder:text-white outline-none"
+                className="flex-1 h-12 sm:h-14 bg-[#444] px-5 text-white placeholder:text-white outline-none hover:bg-[#a8a3a3]"
               />
 
               <button className="bg-[#d50000] hover:bg-red-800 transition px-8 sm:px-10 h-12 sm:h-14 font-semibold uppercase whitespace-nowrap text-[13px]">

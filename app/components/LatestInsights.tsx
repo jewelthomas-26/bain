@@ -88,7 +88,7 @@ const LatestInsights = () => {
   <div className="mt-auto flex items-center justify-between pt-1 text-[13px] text-gray-500">
     <span>{item.type}</span>
 
-    <button className="text-gray-500 hover:text-red-600 transition">
+    <button className="text-gray-500  transition">
       <BookmarkIcon size={22} />
     </button>
   </div>

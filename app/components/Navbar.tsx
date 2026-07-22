@@ -9,16 +9,16 @@ import { Menu, Search, Bookmark, Globe, Folder, X } from "lucide-react";
 const mainNav = [
   {
     label: "Industries",
-    items: ["Consumer Products", "Financial Services", "Healthcare", "Private Equity", "Technology"],
+    items: ["Consumer Products", "Financial Services", "Healthcare", "Private Equity", "Technology","Oil & Gas","Mining","Metals","Private Equity","Real Estate" , "Telecommunications" ,"Utilities & Renewables","Travel & Leisure"],
   },
   {
     label: "Consulting Services",
-    items: ["Strategy", "Mergers & Acquisitions", "Performance Improvement", "Digital"],
+    items: ["Strategy", "Mergers & Acquisitions", "Performance Improvement", "Digital", "Technology","Oil & Gas","Mining","Metals","Private Equity","Real Estate" , "Telecommunications" ,"Utilities & Renewables","Travel & Leisure"],
   },
   { label: "Digital", items: null },
   {
     label: "Insights",
-    items: ["Reports", "Podcasts", "Videos", "Case Studies"],
+    items: ["Reports", "Podcasts", "Videos", "Case Studies" , , "Technology","Oil & Gas","Mining","Metals","Private Equity","Real Estate" , "Telecommunications" ,"Utilities & Renewables","Travel & Leisure"],
   },
   {
     label: "About",
@@ -162,14 +162,14 @@ export default function Navbar() {
             </div>
 
             {/* Right links */}
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 ">
               <button
                 className={`flex items-center gap-1.5 uppercase transition-colors ${
                   isWhite ? "text-gray-700" : "text-white"
                 }`}
               >
                 <Globe size={13} className={isWhite ? "text-red-600" : "text-white"} />
-                <span>Global | English</span>
+                <span className="hover:text-red-500">Global | English</span>
                 <FilledArrow direction="down" className={isWhite ? "text-black" : "text-white"} />
               </button>
 
@@ -179,7 +179,7 @@ export default function Navbar() {
                 }`}
               >
                 <Folder size={13} className={isWhite ? "text-red-600" : "text-white"} />
-                <span>Saved Items</span>
+                <span className="hover:text-red-500">Saved Items</span>
                 <FilledArrow direction="down" className={isWhite ? "text-black" : "text-white"} />
               </button>
             </div>
