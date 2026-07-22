@@ -305,11 +305,7 @@ export default function Navbar() {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => {
           setIsHovered(false);
-          // Don't clear openDropdown here if a dropdown is open via click —
-          // only clear the mega-nav hover-driven dropdown when nothing is pinned open.
-          if (!isAnyDropdownOpen) {
-            setOpenDropdown(null);
-          }
+          setOpenDropdown(null);
         }}
         className={`fixed top-0 left-0 z-50 w-full transition-colors duration-300 ${
           isWhite ? "bg-white shadow-sm" : "bg-transparent border-b border-gray-200/50"
@@ -370,8 +366,8 @@ export default function Navbar() {
                   langOpen ? "text-red-600" : isWhite ? "text-gray-700" : "text-white"
                 }`}
               >
-                <Globe size={15} className={langOpen ? "text-red-600" : isWhite ? "text-red-600" : "text-white"} />
-                <span className="hover:text-red-500">Global | English</span>
+                <Globe size={15} className={langOpen ? "text-red-700" : isWhite ? "text-red-700" : "text-white"} />
+                <span className="hover:text-red-500 tracking-wider">Global | English</span>
                 <FilledArrow
                   direction={langOpen ? "up" : "down"}
                   className={langOpen ? "text-red-600" : isWhite ? "text-black" : "text-white"}
@@ -389,7 +385,7 @@ export default function Navbar() {
                 }`}
               >
                 <Folder size={15} className={savedOpen ? "text-red-600" : isWhite ? "text-red-600" : "text-white"} />
-                <span className="hover:text-red-500">Saved Items</span>
+                <span className="hover:text-red-500 tracking-wider">Saved Items</span>
                 <FilledArrow
                   direction={savedOpen ? "up" : "down"}
                   className={savedOpen ? "text-red-600" : isWhite ? "text-black" : "text-white"}
@@ -479,10 +475,10 @@ export default function Navbar() {
                   </h3>
                   <button
                     onClick={() => setLangOpen(false)}
-                    className="flex items-center gap-1.5 text-[13px] font-medium text-gray-400 transition-colors hover:text-gray-700"
+                    className="flex items-center gap-1.5 text-[13px] font-medium text-red-700 transition-colors "
                   >
                     Close
-                    <X size={16} strokeWidth={2} />
+                    <X size={24} strokeWidth={2} />
                   </button>
                 </div>
 
@@ -576,10 +572,16 @@ export default function Navbar() {
                   <div
                     key={item.label}
                     className="relative"
-                    onMouseEnter={() => item.items && setOpenDropdown(item.label)}
+                    onMouseEnter={() => {
+                      if (item.items) {
+                        setOpenDropdown(item.label);
+                      } else {
+                        setOpenDropdown(null);
+                      }
+                    }}
                   >
                     <button
-                      className={`flex items-center gap-1.5 border-b-1 py-1 text-[15px] font-medium transition-colors hover:text-red-600 hover:border-red-600 ${
+                      className={`flex items-center gap-1.5 border-b-1  text-[15px] font-medium transition-colors hover:text-red-600 hover:border-red-600 ${
                         isOpen
                           ? "text-red-600 border-red-600"
                           : `border-transparent ${isWhite ? "text-gray-800" : "text-white"}`
@@ -667,7 +669,7 @@ export default function Navbar() {
 
         {/* Panel Wrapper */}
         <div
-          className={`absolute left-0 top-0 h-[70%] w-[360px] max-w-[85vw] transition-transform duration-300 ease-in-out ${
+          className={`absolute left-0 top-0 h-[90%] w-[360px] max-w-[85vw] transition-transform duration-300 ease-in-out ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -717,7 +719,7 @@ export default function Navbar() {
                             onClick={() => item.items && setSidebarSubmenu(item.label)}
                             className="group inline-flex items-center gap-1.5 text-left text-[13px] font-semibold text-gray-900 hover:text-red-600 transition-colors"
                           >
-                            <span className="border-b-1 border-transparent pb-0.5 group-hover:border-red-600">
+                            <span className="border-b-1 border-transparent  group-hover:border-red-600">
                               {item.label}
                             </span>
                             {hasArrow && (
@@ -737,7 +739,7 @@ export default function Navbar() {
                     {topNav.map((item) => (
                       <div key={item.label} className="flex items-center">
                         <button className="group inline-flex items-center gap-1.5 hover:text-red-600 transition-colors">
-                          <span className="border-b-1 border-transparent font-light pb-0.5 group-hover:border-red-600 text-[11px] uppercase">
+                          <span className="border-b-1 border-transparent font-light  group-hover:border-red-600 text-[11px] uppercase">
                             {item.label}
                           </span>
                           {item.hasDropdown && (

@@ -53,7 +53,7 @@ export default function ChampionSection() {
             leading-[1.15]
             tracking-tight
             text-black
-            lg:text-[40px]
+            lg:text-[45px]
             "
           >
             We champion the bold to
@@ -67,7 +67,7 @@ export default function ChampionSection() {
             max-w-lg
             text-[20px]
             leading-relaxed
-            text-black
+            text-gray-600
             "
           >
             Answer two questions and put our thinking to work on your

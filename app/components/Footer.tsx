@@ -32,7 +32,7 @@ const Footer = () => {
     <footer className="bg-black text-white">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 py-10 sm:py-12 lg:py-14">
         {/* Top */}
-        <div className="grid gap-10 sm:gap-12 lg:grid-cols-2">
+       <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10">
           {/* Left */}
           <div>
             <h3 className="max-w-[650px] text-[18px] sm:text-[20px] leading-8 sm:leading-10 font-light">
@@ -44,7 +44,7 @@ const Footer = () => {
             <img
               src="/logo/logo_white-bain.svg"
               alt="Bain & Company"
-              className="mt-12 sm:mt-16 lg:mt-20 h-7 sm:h-8"
+              className="mt-12 sm:mt-16 lg:mt-20 h-7 sm:h-6"
             />
           </div>
 
@@ -98,7 +98,7 @@ const Footer = () => {
 
         {/* Bottom */}
         <div className="mt-20 sm:mt-28 lg:mt-32">
-          <div className="flex flex-wrap gap-x-6 sm:gap-x-8 gap-y-3 sm:gap-y-4 text-base sm:text-lg">
+          <div className="flex flex-wrap gap-x-6 sm:gap-x-6 gap-y-3 sm:gap-y-4 text-base sm:text-lg">
             {footerLinks.map((link) => (
               <a
                 key={link}

@@ -51,3 +51,15 @@ body {
     }
   }
 }
+
+@font-face {
+  font-family: "Tiempos Text";
+  src: url("/fonts/TiemposText-Regular.woff2") format("woff2"),
+       url("/fonts/TiemposText-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-tiempos {
+  font-family: "Tiempos Text", Georgia, serif;
+}

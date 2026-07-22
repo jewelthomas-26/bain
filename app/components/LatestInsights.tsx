@@ -80,18 +80,27 @@ const LatestInsights = () => {
     {item.title}
   </h3>
 
-  <p className="mt-4 text-black text-[16px] leading-8">
-    {item.description}
-  </p>
+  <p className="mt-4 font-tiempos text-black text-[16px] leading-8">
+  {item.description}
+</p>
 
   {/* Footer */}
   <div className="mt-auto flex items-center justify-between pt-1 text-[13px] text-gray-500">
-    <span>{item.type}</span>
+  <span>{item.type}</span>
 
-    <button className="text-gray-500  transition">
+  <div className="relative group">
+    <button className="text-gray-500  transition-colors">
       <BookmarkIcon size={22} />
     </button>
+
+    <div className="absolute bottom-full left-1/2 mb-3 -translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+      <div className="relative bg-black text-white text-xs px-4 py-5 whitespace-nowrap">
+        Save
+        <div className="absolute left-1/2 top-12 -translate-x-1/2 w-4 h-4 bg-black rotate-45"></div>
+      </div>
+    </div>
   </div>
+</div>
 </div>
 
     </div>

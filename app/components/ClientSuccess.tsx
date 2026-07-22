@@ -75,18 +75,20 @@ export default function ClientSuccess() {
             text block (heading -> stat cards), so its bottom edge lines up
             with the bottom of the stat cards. "Read story" flows into the
             next grid row, underneath both, on the left. */}
-        <div className="grid lg:grid-cols-2 gap-x-16 gap-y-8">
+       <div className="grid lg:grid-cols-2 gap-x-16 gap-y-8 lg:min-h-[700px]">
+
+
           {/* Row 1, Col 1: heading through stat cards */}
           <div>
             <h1 className="text-4xl md:text-[55px] font-bold text-black mb-6 leading-tight">
               Bold steps forward.
             </h1>
 
-            <p className="text-lg font-semibold text-black">
+            <p className="text-[19px] font-semibold text-black">
               Featured client success story
             </p>
 
-            <div className="h-[2px] bg-gray-300 my-5" />
+            <div className="h-[2px] bg-gray-300 my-2" />
 
             <h2 className="text-2xl md:text-[35px] font-bold text-black leading-tight">
               {slides[active].title}
@@ -112,17 +114,19 @@ export default function ClientSuccess() {
           {/* Row 1, Col 2: image — stretches to match the height of the
               text block above (default grid align-items: stretch), so its
               bottom edge lands exactly on the stat cards' bottom edge. */}
-          <div className="relative w-full h-[380px] sm:h-[460px] lg:h-full min-h-[380px] overflow-hidden">
-            <Image
-              key={active}
-              src={slides[active].image}
-              alt=""
-              fill
-              priority
-              className="object-cover animate-[fade_.5s_ease]"
-            />
-          </div>
-
+          <div className="relative">
+  <div className="absolute bottom-0 left-0 right-0 h-[600px] mb-12 ">
+    <Image
+      key={active}
+      src={slides[active].image}
+      alt=""
+      fill
+      priority
+      className="object-cover animate-[fade_.5s_ease]"
+    />
+  </div>
+</div>
+            
           {/* Row 2, Col 1: Read Story (auto-flows under the text block only) */}
           <button className="group inline-flex items-center gap-2 text-red-700 hover:text-red-800 font-semibold">
   Read story
