@@ -87,7 +87,7 @@ const Footer = () => {
                   key={label}
                   href="#"
                   aria-label={label}
-                  className={`text-white transition-all duration-200 hover:scale-110 ${hover}`}
+                  className={`text-white transition-all duration-200  ${hover}`}
                 >
                   <Icon size={"18px"} />
                 </a>
