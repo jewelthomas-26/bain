@@ -706,7 +706,7 @@ export default function Navbar() {
                   ))}
                 </div>
               </div>
-              <div className="h-[8px] w-full bg-red-700" />
+              <div className="h-[12px] w-full bg-red-700" />
             </div>
           );
         })()}
@@ -729,7 +729,7 @@ export default function Navbar() {
                 ))}
               </div>
             </div>
-            <div className="h-[8px] w-full bg-red-700" />
+            <div className="h-[12px] w-full bg-red-700" />
           </div>
         )}
 
@@ -817,7 +817,7 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
-            <div className="h-[8px] w-full bg-red-700" />
+            <div className="h-[12px] w-full bg-red-700" />
           </div>
         )}
 
@@ -864,7 +864,7 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
-            <div className="h-[8px] w-full bg-red-700" />
+            <div className="h-[12px] w-full bg-red-700" />
           </div>
         )}
       </header>
