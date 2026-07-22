@@ -691,7 +691,7 @@ export default function Navbar() {
           const columns = toColumns(item.items ?? []);
           return (
             <div
-              className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 overflow-hidden bg-white shadow-xl"
+              className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 rounded-b-2xl overflow-hidden bg-white shadow-xl"
               onMouseEnter={() => setOpenDropdown("Industries")}
             >
               <div className="px-8 pt-6 pb-10">
@@ -706,7 +706,7 @@ export default function Navbar() {
                   ))}
                 </div>
               </div>
-              <div className="h-[6px] w-full bg-red-600" />
+              <div className="h-[8px] w-full bg-red-700" />
             </div>
           );
         })()}
@@ -714,7 +714,7 @@ export default function Navbar() {
         {/* Consulting Services */}
         {openDropdown === "Consulting Services" && (
           <div
-            className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 overflow-hidden bg-white shadow-xl"
+            className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 rounded-b-2xl overflow-hidden bg-white shadow-xl"
             onMouseEnter={() => setOpenDropdown("Consulting Services")}
           >
             <div className="px-8 pt-6 pb-10">
@@ -729,14 +729,14 @@ export default function Navbar() {
                 ))}
               </div>
             </div>
-            <div className="h-[6px] w-full bg-red-600" />
+            <div className="h-[8px] w-full bg-red-700" />
           </div>
         )}
 
         {/* Insights */}
         {openDropdown === "Insights" && (
           <div
-            className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 overflow-hidden bg-white shadow-xl"
+            className="absolute left-1/2 top-full z-50 w-full max-w-7xl rounded-b-2xl -translate-x-1/2 overflow-hidden bg-white shadow-xl"
             onMouseEnter={() => setOpenDropdown("Insights")}
           >
             <div className="px-8 pt-6 pb-4">
@@ -817,15 +817,14 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
-            <div className="h-[6px] w-full bg-red-600" />
-            <div className="h-[6px] w-full bg-red-600" />
+            <div className="h-[8px] w-full bg-red-700" />
           </div>
         )}
 
         {/* About */}
         {openDropdown === "About" && (
           <div
-            className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 overflow-hidden bg-white shadow-xl"
+            className="absolute left-1/2 top-full z-50 w-full max-w-7xl rounded-b-2xl -translate-x-1/2 overflow-hidden bg-white shadow-xl"
             onMouseEnter={() => setOpenDropdown("About")}
           >
             <div className="px-8 pt-6 pb-6">
@@ -865,7 +864,7 @@ export default function Navbar() {
                 </div>
               </div>
             </div>
-            <div className="h-[6px] w-full bg-red-600" />
+            <div className="h-[8px] w-full bg-red-700" />
           </div>
         )}
       </header>
