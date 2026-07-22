@@ -110,15 +110,16 @@ export default function ChampionSection() {
           </div>
 
           {/* View All */}
-          <button className="group mt-5 block text-[15px] text-gray-600 transition">
+          <button className="group mt-5 block text-[16px] text-gray-600 transition">
             <span
               className="
-              border-b
-              border-gray-400
-              transition-all
-              group-hover:border-red-600
-              group-hover:text-red-600
-              "
+    underline
+    decoration-gray-400
+    underline-offset-2
+    transition-all
+    group-hover:decoration-red-600
+    group-hover:text-red-600
+    "
             >
               View all
             </span>

@@ -79,7 +79,7 @@ const LatestInsights = () => {
                 {item.title}
               </h3>
 
-              <p className="mt-4 font-tiempos text-black text-[15px] leading-8">
+              <p className="mt-4 font-tiempos text-black text-[16px] leading-8">
                 {item.description}
               </p>
 
