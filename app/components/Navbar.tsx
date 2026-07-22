@@ -18,7 +18,7 @@ const mainNav = [
   { label: "Digital", items: null },
   {
     label: "Insights",
-    items: ["Reports", "Podcasts", "Videos", "Case Studies" , , "Technology","Oil & Gas","Mining","Metals","Private Equity","Real Estate" , "Telecommunications" ,"Utilities & Renewables","Travel & Leisure"],
+    items: ["Reports", "Podcasts", "Videos", "Case Studies" , "White Papers" , "Technology","Oil & Gas","Mining","Metals","Private Equity","Real Estate" , "Telecommunications" ,"Utilities & Renewables","Travel & Leisure"],
   },
   {
     label: "About",
