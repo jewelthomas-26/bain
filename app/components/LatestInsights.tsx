@@ -58,54 +58,53 @@ const LatestInsights = () => {
 
       {/* Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-0 gap-10">
-  {insights.map((item, index) => (
-    <div
-      key={item.id}
-      className={`group relative ${
-        index === 0 ? "lg:border-r lg:border-gray-300 lg:pr-8" : "lg:pl-8"
-      }`}
-    >
-      <img
-        src={item.image}
-        alt={item.title}
-        className="w-full h-[340px] object-cover"
-      />
+        {insights.map((item, index) => (
+          <div
+            key={item.id}
+            className={`group relative ${index === 0 ? "lg:border-r lg:border-gray-300 lg:pr-8" : "lg:pl-8"
+              }`}
+          >
+            <img
+              src={item.image}
+              alt={item.title}
+              className="w-full h-[340px] object-cover"
+            />
 
-     <div className="pt-5 flex flex-col h-[280px]">
-  <p className="text-red-600 text-[12px] font-semibold">
-    {item.category}
-  </p>
+            <div className="pt-5 flex flex-col h-[225px]">
+              <p className="text-red-600 text-[12px] font-semibold">
+                {item.category}
+              </p>
 
-  <h3 className="mt-3 text-[20px] font-semibold leading-snug text-black cursor-pointer transition-colors duration-300 hover:text-red-600">
-    {item.title}
-  </h3>
+              <h3 className="mt-3 text-[20px] font-semibold leading-snug text-black cursor-pointer transition-colors duration-300 hover:text-red-600">
+                {item.title}
+              </h3>
 
-  <p className="mt-4 font-tiempos text-black text-[16px] leading-8">
-  {item.description}
-</p>
+              <p className="mt-4 font-tiempos text-black text-[15px] leading-8">
+                {item.description}
+              </p>
 
-  {/* Footer */}
-  <div className="mt-auto flex items-center justify-between pt-1 text-[13px] text-gray-500">
-  <span>{item.type}</span>
+              {/* Footer */}
+              <div className="mt-auto flex items-center justify-between pt-1 text-[13px] text-gray-500">
+                <span>{item.type}</span>
 
-  <div className="relative group">
-    <button className="text-gray-500  transition-colors">
-      <BookmarkIcon size={22} />
-    </button>
+                <div className="relative group/bookmark">
+                  <button className="text-gray-500  transition-colors">
+                    <BookmarkIcon size={22} />
+                  </button>
 
-    <div className="absolute bottom-full left-1/2 mb-3 -translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
-      <div className="relative bg-black text-white text-xs px-4 py-5 whitespace-nowrap">
-        Save
-        <div className="absolute left-1/2 top-12 -translate-x-1/2 w-4 h-4 bg-black rotate-45"></div>
+                  <div className="absolute bottom-full left-1/2 mb-3 -translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-500 z-10">
+                    <div className="relative bg-black text-white text-xs px-4 py-5 whitespace-nowrap">
+                      Save
+                      <div className="absolute left-1/2 top-12 -translate-x-1/2 w-4 h-4 bg-black rotate-45"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        ))}
       </div>
-    </div>
-  </div>
-</div>
-</div>
-
-    </div>
-  ))}
-</div>
 
 
       {/* Button */}

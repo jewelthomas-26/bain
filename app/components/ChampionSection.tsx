@@ -115,7 +115,6 @@ export default function ChampionSection() {
               className="
               border-b
               border-gray-400
-              pb-0.5
               transition-all
               group-hover:border-red-600
               group-hover:text-red-600

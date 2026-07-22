@@ -75,7 +75,7 @@ export default function ClientSuccess() {
             text block (heading -> stat cards), so its bottom edge lines up
             with the bottom of the stat cards. "Read story" flows into the
             next grid row, underneath both, on the left. */}
-       <div className="grid lg:grid-cols-2 gap-x-16 gap-y-8 lg:min-h-[700px]">
+        <div className="grid lg:grid-cols-2 gap-x-16 gap-y-8 lg:min-h-[700px]">
 
 
           {/* Row 1, Col 1: heading through stat cards */}
@@ -115,39 +115,38 @@ export default function ClientSuccess() {
               text block above (default grid align-items: stretch), so its
               bottom edge lands exactly on the stat cards' bottom edge. */}
           <div className="relative">
-  <div className="absolute bottom-0 left-0 right-0 h-[600px] mb-12 ">
-    <Image
-      key={active}
-      src={slides[active].image}
-      alt=""
-      fill
-      priority
-      className="object-cover animate-[fade_.5s_ease]"
-    />
-  </div>
-</div>
-            
+            <div className="absolute bottom-0 left-0 right-0 h-[600px]  ">
+              <Image
+                key={active}
+                src={slides[active].image}
+                alt=""
+                fill
+                priority
+                className="object-cover animate-[fade_.5s_ease]"
+              />
+            </div>
+          </div>
+
           {/* Row 2, Col 1: Read Story (auto-flows under the text block only) */}
-          <button className="group inline-flex items-center gap-2 text-red-700 hover:text-red-800 font-semibold">
-  Read story
-  <FilledArrowRight
-    size={14}
-    className="group-hover:translate-x-1 transition-transform"
-  />
-</button>
+          <button className="group inline-flex items-center gap-2 text-red-700 hover:text-red-800 font-semibold mb-25">
+            Read story
+            <FilledArrowRight
+              size={14}
+              className="group-hover:translate-x-1 transition-transform"
+            />
+          </button>
         </div>
 
         {/* Dots */}
-        <div className="flex justify-center gap-4 mt-14">
+        <div className="flex justify-center gap-4 mt-5">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => setActive(index)}
-              className={`h-3 w-3 rounded-full transition-all duration-300 ${
-                active === index
-                  ? "bg-red-700 scale-130"
-                  : "bg-gray-400 hover:bg-red-800"
-              }`}
+              className={`h-3 w-3 rounded-full transition-all duration-300 ${active === index
+                ? "bg-red-700 scale-130"
+                : "bg-gray-400 hover:bg-red-800"
+                }`}
             />
           ))}
         </div>
@@ -157,7 +156,7 @@ export default function ClientSuccess() {
           <button className="group border border-gray-300 px-8 py-4 uppercase text-[13px] font-semibold transition-all duration-300 hover:bg-red-800 hover:text-white hover:border-red-800">
             <span className="flex items-center gap-2 text-red-700 group-hover:text-white">
               See All Client Results
-              
+
             </span>
           </button>
         </div>

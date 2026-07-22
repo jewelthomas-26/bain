@@ -5,27 +5,83 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, Search, Bookmark, Globe, Folder, FolderOpen, X, ExternalLink } from "lucide-react";
 
-// Main nav items with dropdown sub-items (edit as needed)
+// Main nav items – each entry may have a `dropdownType` for custom layouts
 const mainNav = [
   {
     label: "Industries",
-    items: ["Consumer Products", "Financial Services", "Healthcare", "Private Equity", "Technology","Oil & Gas","Mining","Metals","Private Equity","Real Estate" , "Telecommunications" ,"Utilities & Renewables","Travel & Leisure"],
+    dropdownType: "generic" as const,
+    items: ["Consumer Products", "Financial Services", "Healthcare", "Private Equity", "Technology", "Oil & Gas", "Mining", "Metals", "Real Estate", "Telecommunications", "Utilities & Renewables", "Travel & Leisure"],
   },
   {
     label: "Consulting Services",
-    items: ["Strategy", "Mergers & Acquisitions", "Performance Improvement", "Digital", "Technology","Oil & Gas","Mining","Metals","Private Equity","Real Estate" , "Telecommunications" ,"Utilities & Renewables","Travel & Leisure"],
+    dropdownType: "consultingServices" as const,
+    items: null,
   },
-  { label: "Digital", items: null },
+  { label: "Digital", dropdownType: null, items: null },
   {
     label: "Insights",
-    items: ["Reports", "Podcasts", "Videos", "Case Studies" , "White Papers" , "Technology","Oil & Gas","Mining","Metals","Private Equity","Real Estate" , "Telecommunications" ,"Utilities & Renewables","Travel & Leisure"],
+    dropdownType: "insights" as const,
+    items: null,
   },
   {
     label: "About",
-    items: ["Our History", "Leadership", "Social Impact", "Diversity & Inclusion"],
+    dropdownType: "about" as const,
+    items: null,
   },
-  { label: "Careers", items: null },
+  { label: "Careers", dropdownType: null, items: null },
 ];
+
+// ---- Consulting Services dropdown data ----
+const consultingServicesColumns = [
+  ["AI, Insights, and Solutions", "Customer Experience", "Innovation"],
+  ["M&A", "Operations", "People & Organization"],
+  ["Private Equity", "Sales & Marketing", "Strategy"],
+  ["Sustainability", "Technology", "Transformation"],
+];
+
+// ---- Insights dropdown data ----
+const insightsLeft = [
+  "Industry Insights",
+  "Services Insights",
+  "Bain Books",
+  "Webinars",
+  "Bain Futures",
+];
+const insightsFeaturedCol1 = [
+  "Tariff Response",
+  "Artificial Intelligence",
+  "Thriving in Uncertainty",
+  "Executive Conversations",
+  "Macro Trends",
+];
+const insightsFeaturedCol2 = [
+  "B2B Growth Agenda",
+  "Private Equity Report",
+  "M&A Report",
+  "Healthcare Private Equity Report",
+  "Technology Report",
+];
+const insightsFeaturedCol3 = [
+  "CEO Insights",
+  "CFO Insights",
+  "COO Insights",
+  "CIO Insights",
+  "CMO Insights",
+];
+
+// ---- About dropdown data ----
+const aboutLeft = [
+  "What We Do",
+  "What We Believe",
+  "Our People & Leadership",
+];
+const aboutRight = [
+  "Client Results",
+  "Awards & Recognition",
+  "Global Affiliations",
+];
+const aboutFurtherCol1 = ["Sustainability", "Social Impact"];
+const aboutFurtherCol2 = ["World Economic Forum"];
 
 const topNav = [
   { label: "Offices", hasDropdown: true },
@@ -198,10 +254,10 @@ function FilledArrow({ direction = "down", size = 9, className = "" }: FilledArr
     direction === "down"
       ? "rotate-0"
       : direction === "up"
-      ? "rotate-180"
-      : direction === "right"
-      ? "-rotate-90"
-      : "rotate-90";
+        ? "rotate-180"
+        : direction === "right"
+          ? "-rotate-90"
+          : "rotate-90";
 
   return (
     <svg
@@ -297,7 +353,16 @@ export default function Navbar() {
   // instead of requiring a hover/scroll to reveal it)
   const isWhite = isScrolled || isHovered || isAnyDropdownOpen;
 
+  const sidebarSubmenuItems: Record<string, string[]> = {
+    Industries: ["Consumer Products", "Financial Services", "Healthcare", "Private Equity", "Technology", "Oil & Gas", "Mining", "Metals", "Real Estate", "Telecommunications", "Utilities & Renewables", "Travel & Leisure"],
+    "Consulting Services": consultingServicesColumns.flat(),
+    Insights: [...insightsLeft, ...insightsFeaturedCol1, ...insightsFeaturedCol2, ...insightsFeaturedCol3],
+    About: [...aboutLeft, ...aboutRight, ...aboutFurtherCol1, ...aboutFurtherCol2],
+  };
+
   const activeSidebarSubmenu = mainNav.find((i) => i.label === sidebarSubmenu);
+  const activeSidebarItems = sidebarSubmenu ? sidebarSubmenuItems[sidebarSubmenu] ?? [] : [];
+
 
   return (
     <>
@@ -307,15 +372,13 @@ export default function Navbar() {
           setIsHovered(false);
           setOpenDropdown(null);
         }}
-        className={`fixed top-0 left-0 z-50 w-full transition-colors duration-300 ${
-          isWhite ? "bg-white shadow-sm" : "bg-transparent border-b border-gray-200/50"
-        }`}
+        className={`fixed top-0 left-0 z-50 w-full transition-colors duration-300 ${isWhite ? "bg-white shadow-sm" : "bg-transparent border-b border-gray-200/50"
+          }`}
       >
         {/* ---------- Top Bar ---------- */}
         <div
-          className={`relative overflow-visible transition-all duration-300 ease-in-out ${
-            showTopBar ? "max-h-12 opacity-100" : "max-h-0 opacity-0 pointer-events-none"
-          } ${isWhite ? "border-b border-gray-200" : ""}`}
+          className={`relative overflow-visible transition-all duration-300 ease-in-out ${showTopBar ? "max-h-12 opacity-100" : "max-h-0 opacity-0 pointer-events-none"
+            } ${isWhite ? "border-b border-gray-200" : ""}`}
         >
           <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-2.5 text-[11px] font-semibold tracking-wide">
             {/* Left links */}
@@ -331,9 +394,8 @@ export default function Navbar() {
                         setLangOpen(false);
                         setSavedOpen(false);
                       }}
-                      className={`flex items-center gap-1 uppercase transition-colors hover:text-red-600 ${
-                        isOpen ? "text-red-600" : isWhite ? "text-gray-700" : "text-white"
-                      }`}
+                      className={`flex items-center gap-1 uppercase transition-colors hover:text-red-600 ${isOpen ? "text-red-600" : isWhite ? "text-gray-700" : "text-white"
+                        }`}
                     >
                       {item.label}
                       <FilledArrow direction={isOpen ? "up" : "down"} />
@@ -343,9 +405,8 @@ export default function Navbar() {
                 return (
                   <button
                     key={item.label}
-                    className={`flex items-center gap-1 uppercase transition-colors hover:text-red-600 ${
-                      isWhite ? "text-gray-700" : "text-white"
-                    }`}
+                    className={`flex items-center gap-1 uppercase transition-colors hover:text-red-600 ${isWhite ? "text-gray-700" : "text-white"
+                      }`}
                   >
                     {item.label}
                     {item.hasDropdown && <FilledArrow direction="down" />}
@@ -362,9 +423,8 @@ export default function Navbar() {
                   setOfficesOpen(false);
                   setSavedOpen(false);
                 }}
-                className={`flex items-center gap-1.5 uppercase transition-colors ${
-                  langOpen ? "text-red-600" : isWhite ? "text-gray-700" : "text-white"
-                }`}
+                className={`flex items-center gap-1.5 uppercase transition-colors ${langOpen ? "text-red-600" : isWhite ? "text-gray-700" : "text-white"
+                  }`}
               >
                 <Globe size={15} className={langOpen ? "text-red-700" : isWhite ? "text-red-700" : "text-white"} />
                 <span className="hover:text-red-500 tracking-wider">Global | English</span>
@@ -380,9 +440,8 @@ export default function Navbar() {
                   setOfficesOpen(false);
                   setLangOpen(false);
                 }}
-                className={`flex items-center gap-1.5 uppercase transition-colors ${
-                  savedOpen ? "text-red-600" : isWhite ? "text-gray-700" : "text-white"
-                }`}
+                className={`flex items-center gap-1.5 uppercase transition-colors ${savedOpen ? "text-red-600" : isWhite ? "text-gray-700" : "text-white"
+                  }`}
               >
                 <Folder size={15} className={savedOpen ? "text-red-600" : isWhite ? "text-red-600" : "text-white"} />
                 <span className="hover:text-red-500 tracking-wider">Saved Items</span>
@@ -396,7 +455,7 @@ export default function Navbar() {
 
           {/* ---------- Offices mega-dropdown panel ---------- */}
           {officesOpen && (
-            <div className="absolute left-0 top-full z-50 w-full border-t border-gray-100 bg-white shadow-xl">
+            <div className="absolute left-0 top-full z-50 w-full  bg-white shadow-xl">
               <div className="mx-auto max-w-7xl px-8 pt-8 pb-4">
                 <div className="mb-8 flex items-center justify-between">
                   <h3 className="text-[20px] font-semibold leading-none text-gray-900">Offices</h3>
@@ -413,9 +472,8 @@ export default function Navbar() {
                   {officeColumns.map((blocks, ci) => (
                     <div
                       key={ci}
-                      className={`flex flex-col gap-10 ${
-                        ci > 0 ? "border-l border-gray-200 pl-16 -ml-16" : ""
-                      }`}
+                      className={`flex flex-col gap-10 ${ci > 0 ? "border-l border-gray-200 pl-16 -ml-16" : ""
+                        }`}
                     >
                       {blocks.map((block) => {
                         const [colA, colB] = splitHalf(block.offices);
@@ -425,8 +483,8 @@ export default function Navbar() {
                             <div className="grid grid-cols-2 gap-x-8 gap-y-3">
                               <div className="flex flex-col gap-3">
                                 {colA.map((city) => (
-                                  
-                                  <a  key={city}
+
+                                  <a key={city}
                                     href="#"
                                     className="text-[16px] font-normal text-gray-800 tracking-wide transition-colors hover:text-red-600"
                                   >
@@ -436,8 +494,8 @@ export default function Navbar() {
                               </div>
                               <div className="flex flex-col gap-3">
                                 {colB.map((city) => (
-                                  
-                                   <a key={city}
+
+                                  <a key={city}
                                     href="#"
                                     className="text-[16px] font-normal text-gray-800 transition-colors hover:text-red-600"
                                   >
@@ -454,8 +512,8 @@ export default function Navbar() {
                 </div>
 
                 <div className="mt-10">
-                  
-                  <a  href="#"
+
+                  <a href="#"
                     className="text-[16px] font-normal tracking-wide text-red-700 transition-colors"
                   >
                     See all offices
@@ -467,7 +525,7 @@ export default function Navbar() {
 
           {/* ---------- Region & language mega-dropdown panel ---------- */}
           {langOpen && (
-            <div className="absolute left-0 top-full z-50 w-full border-t border-gray-100 bg-white shadow-xl">
+            <div className="absolute left-0 top-full z-50 w-full bg-white shadow-xl">
               <div className="mx-auto max-w-7xl px-8 pt-8 pb-10">
                 <div className="mb-4 flex items-center justify-between">
                   <h3 className="text-[22px] font-semibold leading-none text-gray-900">
@@ -491,8 +549,8 @@ export default function Navbar() {
                       <h4 className="mb-4 text-[18px] font-bold text-gray-900">{block.title}</h4>
                       <div className="flex flex-col gap-4">
                         {block.entries.map((entry) => (
-                          
-                          <a  key={entry.country}
+
+                          <a key={entry.country}
                             href="#"
                             className="group inline-flex items-center gap-2.5 text-[14px] font-normal text-gray-800 transition-colors hover:text-red-600"
                           >
@@ -524,15 +582,15 @@ export default function Navbar() {
 
           {/* ---------- Saved items empty-state panel ---------- */}
           {savedOpen && (
-            <div className="absolute left-0 top-full z-50 w-full border-t border-gray-200 bg-white shadow-xl">
+            <div className="absolute left-0 top-full z-50 w-full bg-white shadow-xl">
               <div className="mx-auto flex max-w-7xl flex-col items-center px-8 py-16 text-center">
                 <FolderOpen size={122} strokeWidth={1.5} className="text-gray-300" />
                 <h3 className="mt-6 text-[20px] font-bold text-gray-500">You have no saved items.</h3>
                 <p className="mt-4 max-w-full text-[17px] text-gray-800">
                   Bookmark content that interests you and it will be saved here for you to read or share later.
                 </p>
-                
-                 <a href="#"
+
+                <a href="#"
                   className="mt-8 inline-flex items-center bg-red-700 px-8 py-4.5 text-[12px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-red-800"
                 >
                   Explore Bain Insights
@@ -573,7 +631,7 @@ export default function Navbar() {
                     key={item.label}
                     className="relative"
                     onMouseEnter={() => {
-                      if (item.items) {
+                      if (item.dropdownType) {
                         setOpenDropdown(item.label);
                       } else {
                         setOpenDropdown(null);
@@ -581,14 +639,13 @@ export default function Navbar() {
                     }}
                   >
                     <button
-                      className={`flex items-center gap-1.5 border-b-1  text-[15px] font-medium transition-colors hover:text-red-600 hover:border-red-600 ${
-                        isOpen
-                          ? "text-red-600 border-red-600"
-                          : `border-transparent ${isWhite ? "text-gray-800" : "text-white"}`
-                      }`}
+                      className={`flex items-center gap-1.5 border-b-1  text-[15px] font-medium transition-colors hover:text-red-600 hover:border-red-600 ${isOpen
+                        ? "text-red-600 border-red-600"
+                        : `border-transparent ${isWhite ? "text-gray-800" : "text-white"}`
+                        }`}
                     >
                       {item.label}
-                      {item.items && (
+                      {item.dropdownType && (
                         <FilledArrow
                           direction={isOpen ? "up" : "down"}
                           className={isWhite ? "text-red-600" : "text-white"}
@@ -604,74 +661,227 @@ export default function Navbar() {
           {/* Right: explore/search + bookmark */}
           <div className="flex items-center gap-5">
             <button
-              className={`hidden items-center gap-2 text-[14px] tracking-[1px] font-medium sm:flex ${
-                isWhite ? "text-gray-500" : "text-white"
-              }`}
+              className={`hidden items-center gap-2 text-[14px] tracking-[1px] font-medium sm:flex ${isWhite ? "text-gray-500" : "text-white"
+                }`}
             >
               Explore
               <Search size={23} />
             </button>
             <span className={`h-6 w-px ${isWhite ? "bg-gray-300" : "bg-white"}`} />
 
-            <button className={isWhite ? "text-gray-700" : "text-white"}>
-              <Bookmark size={23} strokeWidth={1.75} />
-            </button>
+            <div className="relative group/bookmark">
+              <button className={isWhite ? "text-gray-700" : "text-white"}>
+                <Bookmark size={23} strokeWidth={1.75} />
+              </button>
+              <div className="absolute top-full left-1/2 mt-3 -translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-500 z-50">
+                <div className="relative bg-black text-white text-xs px-4 py-5 whitespace-nowrap">
+                  Save
+                  <div className="absolute left-1/2 -top-2 -translate-x-1/2 w-4 h-4 bg-black rotate-45"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* ---------- Mega dropdown panel ---------- */}
-        {mainNav.map((item) => {
-          if (!item.items || openDropdown !== item.label) return null;
-          const columns = toColumns(item.items);
+        {/* ---------- Mega dropdown panels ---------- */}
+
+        {/* Industries - generic grid */}
+        {openDropdown === "Industries" && (() => {
+          const item = mainNav.find(i => i.label === "Industries")!;
+          const columns = toColumns(item.items ?? []);
           return (
             <div
-              key={item.label}
-              className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 overflow-hidden rounded-b-2xl bg-white shadow-xl"
-              onMouseEnter={() => setOpenDropdown(item.label)}
+              className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 overflow-hidden bg-white shadow-xl"
+              onMouseEnter={() => setOpenDropdown("Industries")}
             >
-              <div className="relative px-8 pt-6 pb-10">
-                <h3 className="mb-8 text-[26px] font-semibold leading-[1] text-gray-900">
-                  {item.label}
-                </h3>
-
-                <div className="grid grid-cols-4 gap-x-16 gap-y-4">
+              <div className="px-8 pt-6 pb-10">
+                <h3 className="mb-6 text-[22px] font-semibold text-gray-900">Industries</h3>
+                <div className="grid grid-cols-4 gap-x-12 gap-y-4">
                   {columns.map((col, ci) => (
-                    <div key={ci} className="flex flex-col gap-5">
+                    <div key={ci} className="flex flex-col gap-4">
                       {col.map((sub) => (
-                        
-                         <a key={sub}
-                          href="#"
-                          className="text-[14px] leading-[1] font-normal text-gray-800 transition-colors hover:text-red-600"
-                        >
-                          {sub}
-                        </a>
+                        <a key={sub} href="#" className="text-[14px] font-normal text-gray-800 transition-colors hover:text-red-600">{sub}</a>
                       ))}
                     </div>
                   ))}
                 </div>
               </div>
-
-              {/* Bottom red bar */}
               <div className="h-[6px] w-full bg-red-600" />
             </div>
           );
-        })}
+        })()}
+
+        {/* Consulting Services */}
+        {openDropdown === "Consulting Services" && (
+          <div
+            className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 overflow-hidden bg-white shadow-xl"
+            onMouseEnter={() => setOpenDropdown("Consulting Services")}
+          >
+            <div className="px-8 pt-6 pb-10">
+              <h3 className="mb-6 text-[22px] font-semibold text-gray-900">Consulting Services</h3>
+              <div className="grid grid-cols-4 gap-x-12 gap-y-3">
+                {consultingServicesColumns.map((col, ci) => (
+                  <div key={ci} className="flex flex-col gap-3">
+                    {col.map((item) => (
+                      <a key={item} href="#" className="text-[14px] font-normal text-gray-800 transition-colors hover:text-red-600">{item}</a>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="h-[6px] w-full bg-red-600" />
+          </div>
+        )}
+
+        {/* Insights */}
+        {openDropdown === "Insights" && (
+          <div
+            className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 overflow-hidden bg-white shadow-xl"
+            onMouseEnter={() => setOpenDropdown("Insights")}
+          >
+            <div className="px-8 pt-6 pb-4">
+              <div className="grid grid-cols-[180px_1px_1fr] gap-x-10">
+                {/* Left: Insights */}
+                <div>
+                  <h3 className="mb-4 text-[22px] font-semibold text-gray-900">
+                    Insights
+                  </h3>
+                  <div className="flex flex-col gap-3">
+                    {insightsLeft.map((item) => (
+                      <a
+                        key={item}
+                        href="#"
+                        className="text-[14px] font-normal text-gray-800 transition-colors hover:text-red-600"
+                      >
+                        {item}
+                      </a>
+                    ))}
+                  </div>
+                  <a
+                    href="#"
+                    className="mt-5 inline-block text-[17px] font-normal text-red-700 hover:underline"
+                  >
+                    View all insights
+                  </a>
+                </div>
+
+                {/* Vertical Divider */}
+                <div className="bg-gray-300 w-0.5  self-stretch" />
+
+                {/* Right: Featured topics */}
+                <div>
+                  <h4 className="mb-4 text-[22px] font-semibold text-gray-400">
+                    Featured topics
+                  </h4>
+                  <div className="grid grid-cols-3 gap-x-10 gap-y-3">
+                    <div className="flex flex-col gap-3">
+                      {insightsFeaturedCol1.map((item) => (
+                        <a
+                          key={item}
+                          href="#"
+                          className="text-[14px] font-normal text-gray-800 transition-colors hover:text-red-600"
+                        >
+                          {item}
+                        </a>
+                      ))}
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      {insightsFeaturedCol2.map((item) => (
+                        <a
+                          key={item}
+                          href="#"
+                          className="text-[14px] font-normal text-gray-800 transition-colors hover:text-red-600"
+                        >
+                          {item}
+                        </a>
+                      ))}
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      {insightsFeaturedCol3.map((item) => (
+                        <a
+                          key={item}
+                          href="#"
+                          className="text-[14px] font-normal text-gray-800 transition-colors hover:text-red-600"
+                        >
+                          {item}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                  <a
+                    href="#"
+                    className="mt-5 inline-block text-[17px] font-normal text-red-700 hover:underline"
+                  >
+                    View all featured topics
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="h-[6px] w-full bg-red-600" />
+            <div className="h-[6px] w-full bg-red-600" />
+          </div>
+        )}
+
+        {/* About */}
+        {openDropdown === "About" && (
+          <div
+            className="absolute left-1/2 top-full z-50 w-full max-w-7xl -translate-x-1/2 overflow-hidden bg-white shadow-xl"
+            onMouseEnter={() => setOpenDropdown("About")}
+          >
+            <div className="px-8 pt-6 pb-6">
+              <div className="grid grid-cols-[340px_1fr] gap-x-12">
+                {/* Left: About links in 2 columns */}
+                <div>
+                  <h3 className="mb-4 text-[22px] font-semibold text-gray-900">About</h3>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+                    <div className="flex flex-col gap-3">
+                      {aboutLeft.map((item) => (
+                        <a key={item} href="#" className="text-[14px] font-normal text-black transition-colors hover:text-red-600">{item}</a>
+                      ))}
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      {aboutRight.map((item) => (
+                        <a key={item} href="#" className="text-[14px] font-normal text-black transition-colors hover:text-red-800">{item}</a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                {/* Right: Further section */}
+                <div className="border-l border-gray-200 pl-10">
+                  <h4 className="mb-4 text-[22px] font-semibold text-gray-500">Further: Our global responsibility</h4>
+                  <div className="grid grid-cols-2 gap-x-10 gap-y-3">
+                    <div className="flex flex-col gap-3">
+                      {aboutFurtherCol1.map((item) => (
+                        <a key={item} href="#" className="text-[14px] font-normal text-black transition-colors hover:text-red-800">{item}</a>
+                      ))}
+                      <a href="#" className="mt-1 text-[16px] font-normal text-red-700 hover:underline">Learn more about Further</a>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      {aboutFurtherCol2.map((item) => (
+                        <a key={item} href="#" className="text-[14px] font-normal text-black transition-colors hover:text-red-600">{item}</a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="h-[6px] w-full bg-red-600" />
+          </div>
+        )}
       </header>
 
       {/* ---------- Sidebar overlay ---------- */}
       <div
-        className={`fixed inset-0 z-[60] transition-opacity duration-300 ${
-          sidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-[60] transition-opacity duration-300 ${sidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
       >
         {/* Backdrop */}
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" onClick={closeSidebar} />
 
         {/* Panel Wrapper */}
         <div
-          className={`absolute left-0 top-0 h-[90%] w-[360px] max-w-[85vw] transition-transform duration-300 ease-in-out ${
-            sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+          className={`absolute left-0 top-0 h-[90%] w-[360px] max-w-[85vw] transition-transform duration-300 ease-in-out ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
         >
           {/* Close button */}
           <button
@@ -711,12 +921,12 @@ export default function Navbar() {
                   {/* Main Navigation Items */}
                   <nav className="flex flex-col gap-5 ml-10">
                     {mainNav.map((item) => {
-                      const hasArrow = item.items !== null || item.label === "Careers";
+                      const hasArrow = !!item.dropdownType;
 
                       return (
                         <div key={item.label} className="flex items-center">
                           <button
-                            onClick={() => item.items && setSidebarSubmenu(item.label)}
+                            onClick={() => item.dropdownType && setSidebarSubmenu(item.label)}
                             className="group inline-flex items-center gap-1.5 text-left text-[13px] font-semibold text-gray-900 hover:text-red-600 transition-colors"
                           >
                             <span className="border-b-1 border-transparent  group-hover:border-red-600">
@@ -788,9 +998,8 @@ export default function Navbar() {
                   </h3>
 
                   <nav className="flex flex-col gap-4">
-                    {activeSidebarSubmenu.items?.map((sub) => (
-                      
-                       <a key={sub}
+                    {activeSidebarItems.map((sub) => (
+                      <a key={sub}
                         href="#"
                         className="group inline-flex items-center text-[15px] font-medium text-gray-800 hover:text-red-600 transition-colors"
                       >
