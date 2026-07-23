@@ -47,17 +47,18 @@ export default function ChampionSection() {
         <div className="order-1 lg:order-2">
           <h2
             className="
-    max-w-[300px]
-    sm:max-w-xl
-    text-[37px]
-    font-semibold
-    leading-[1.2]
-    tracking-tight
-    text-black
-    sm:text-[34px]
-    lg:text-[45px]
-    lg:leading-[1.15]
-  "
+            max-w-[300px]
+            sm:max-w-xl
+            text-[31px]
+            font-semibold
+            leading-[1.3]
+            tracking-[2]
+            text-black
+            sm:text-[34px]
+            lg:text-[45px]
+            lg:leading-[1.15]
+            "
+            style={{ fontFamily: "Graphik, sans-serif" }}
           >
             We champion the bold to
             <br className="hidden sm:block" />
@@ -67,7 +68,7 @@ export default function ChampionSection() {
             className="
             mt-4
             max-w-lg
-            text-[16px]
+            text-[18px]
             leading-relaxed
             text-gray-600
             sm:mt-6
@@ -93,7 +94,7 @@ export default function ChampionSection() {
           </div>
 
           <div className="mt-6 flex items-baseline gap-2 sm:mt-8">
-            <p className="text-[16px] font-semibold text-black sm:text-[18px]">
+            <p className="text-[17px] font-semibold text-black sm:text-[18px]">
               1. What is your industry?
             </p>
             <span className="text-[13px] text-gray-500 sm:text-[14px]">
@@ -128,23 +129,22 @@ export default function ChampionSection() {
               >
                 {item}
               </button>
-
             ))}
             <span
               className="
-    underline
-    decoration-gray-600
-    underline-offset-1
-    transition-all
-    group-hover:decoration-red-600
-    group-hover:text-red-600
-    text-gray-600
-    mt-3
-    block
-    text-[13px]
-    ml-5
-    md:hidden
-    "
+              underline
+              decoration-gray-600
+              underline-offset-1
+              transition-all
+              group-hover:decoration-red-600
+              group-hover:text-red-600
+              text-gray-600
+              mt-3
+              block
+              text-[13px]
+              ml-5
+              md:hidden
+              "
             >
               View all
             </span>
@@ -154,13 +154,13 @@ export default function ChampionSection() {
           <button className="group mt-4 block text-[14px] text-gray-600 transition sm:mt-5 sm:text-[16px] hidden sm:block">
             <span
               className="
-    underline
-    decoration-gray-400
-    underline-offset-1
-    transition-all
-    group-hover:decoration-red-600
-    group-hover:text-red-600
-    "
+              underline
+              decoration-gray-400
+              underline-offset-1
+              transition-all
+              group-hover:decoration-red-600
+              group-hover:text-red-600
+              "
             >
               View all
             </span>

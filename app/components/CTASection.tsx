@@ -33,7 +33,7 @@ const CTASection = () => {
       </section>
 
       {/* Bottom White Strip */}
-      <div className="h-9 bg-white"></div>
+      <div className="h-11 sm:h-9 bg-white"></div>
     </>
   );
 };

@@ -69,7 +69,7 @@ export default function ClientSuccess() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="bg-white py-20 px-6">
+    <section className="bg-white mb-13 sm:mb-0 sm:py-20 px-6">
       <div className="mx-auto max-w-7xl">
         {/* Content: 2-column grid. The image is placed in the SAME row as the
             text block (heading -> stat cards), so its bottom edge lines up
@@ -102,10 +102,10 @@ export default function ClientSuccess() {
               {slides[active].stats.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-[#e7e7e7] p-8 w-55 sm:w-56 text-black"
+                  className="bg-[#f0efef] p-8 w-55 sm:w-56 text-black"
                 >
                   <h3 className="text-5xl font-normal">{item.number}</h3>
-                  <p className="mt-4 text-gray-700 leading-7">{item.text}</p>
+                  <p className="mt-4 text-black leading-7">{item.text}</p>
                 </div>
               ))}
             </div>

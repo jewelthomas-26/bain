@@ -74,8 +74,8 @@ export default function AIEvolutionSection() {
             </div>
 
             <div className="mt-auto px-6 pb-5">
-              <button className="w-full border border-white px-4 py-3 text-[11px] font-semibold uppercase leading-snug tracking-wider text-white transition hover:bg-red-800 hover:border-red-800">
-                View how we&apos;ve helped top companies win with AI
+              <button className="w-full border border-white px-4 py-3 text-[13px] sm:text-[11px] font-semibold uppercase leading-snug tracking-wider text-white transition hover:bg-red-800 hover:border-red-800">
+                View how we&apos;ve helped top <br className="block md:hidden" />  companies win with AI
               </button>
             </div>
           </div>

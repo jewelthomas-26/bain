@@ -658,7 +658,7 @@ export default function Navbar() {
                 </div>
               </button>
 
-              <Link href="/" className="relative block h-7 w-[140px] sm:h-9 sm:w-[190px] shrink-0">
+              <Link href="/" className="relative block h-7 w-[180px] sm:h-9 sm:w-[190px] shrink-0">
                 <Image
                   src={isWhite ? "/logo/logo_red_bain.svg" : "/logo/logo_white-bain.svg"}
                   alt="Bain & Company"
@@ -723,7 +723,7 @@ export default function Navbar() {
 
             <div className="relative group/bookmark">
               <button className={isWhite ? "text-gray-700" : "text-white"}>
-                <Bookmark size={22} strokeWidth={1.75} className="sm:w-[23px] sm:h-[23px]" />
+                <Bookmark size={22} strokeWidth={1.75} className="sm:w-[23px] sm:h-[23px] mt-2" />
               </button>
               <div className="absolute top-full left-1/2 mt-2.5 -translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-300 z-50 pointer-events-none">
                 <div className="relative bg-black text-white text-[12px] px-3 py-3.5 whitespace-nowrap shadow-md">

@@ -45,13 +45,11 @@ const LatestInsights = () => {
   return (
     <section className="max-w-7xl mx-auto px-6 py-16">
       {/* Heading */}
-      <div className="flex items-center justify-center gap-6 mb-14">
+      <div className="flex items-center justify-center gap-6 mb-14 ">
         <div className="flex-1 h-px bg-gray-300"></div>
-
-        <h2 className="text-2xl md:text-[30px] font-bold text-gray-900 text-center">
-          Our Latest Insights
+        <h2 className="text-[25px] md:text-[30px] font-bold text-gray-900 text-center">
+          Our Latest <br className="block md:hidden" /> Insights
         </h2>
-
         <div className="flex-1 h-px bg-gray-300"></div>
       </div>
 
@@ -60,32 +58,31 @@ const LatestInsights = () => {
         {insights.map((item, index) => (
           <div
             key={item.id}
-            className={`group relative flex flex-row items-start gap-4 py-6 lg:block lg:py-0 ${index === 0 ? "lg:border-r lg:border-gray-300 lg:pr-8" : "lg:pl-8"
-              }`}
+            className={`group relative flex flex-col lg:block py-6 lg:py-0 ${
+              index === 0 ? "lg:border-r lg:border-gray-300 lg:pr-8" : "lg:pl-8"
+            }`}
           >
             <img
               src={item.image}
               alt={item.title}
-              className="w-24 h-24 flex-shrink-0 object-cover lg:w-full lg:h-[340px]"
+              className="w-full h-48 lg:w-full lg:h-[340px] object-cover"
             />
 
-            <div className="flex flex-col flex-1 min-w-0 lg:pt-5 lg:h-[225px]">
-              <p className="text-red-600 text-[11px] lg:text-[12px] font-semibold">
+            <div className="flex flex-col flex-1 min-w-0 lg:pt-5 lg:h-[225px] pt-3">
+              <p className="text-red-600 text-[13px] lg:text-[12px] font-semibold">
                 {item.category}
               </p>
 
-              <h3 className="mt-1.5 lg:mt-3 text-[15px] lg:text-[20px] font-semibold leading-snug text-black cursor-pointer transition-colors duration-300 hover:text-red-600">
+              <h3 className="mt-1.5 lg:mt-3 text-[17px] lg:text-[20px] font-semibold leading-snug text-black cursor-pointer transition-colors duration-300 hover:text-red-600">
                 {item.title}
               </h3>
 
-              <p className="hidden lg:block mt-4 font-tiempos text-black text-[16px] leading-8">
+              <p className="mt-2 lg:mt-4 font-tiempos text-[15px] lg:text-[16px] text-black leading-6 lg:leading-8">
                 {item.description}
               </p>
-              
-
 
               {/* Footer */}
-              <div className="mt-2 lg:mt-auto flex items-center justify-between lg:pt-1 text-[12px] lg:text-[13px] text-gray-500">
+              <div className="mt-3 lg:mt-auto flex items-center justify-between text-[14px] lg:text-[13px] text-gray-500">
                 <span>{item.type}</span>
 
                 <div className="relative group/bookmark">
@@ -105,10 +102,12 @@ const LatestInsights = () => {
           </div>
         ))}
       </div>
-<div className="block lg:hidden mx-1 h-px bg-gray-300"></div>
+
+      <div className="block lg:hidden mx-1 h-px bg-gray-300"></div>
+
       {/* Button */}
       <div className="flex justify-center mt-16">
-        <button className="border border-gray-300 text-[13px] px-22 sm:px-10 py-4 text-red-700 font-semibold uppercase tracking-wide transition-all duration-300 hover:bg-red-800 hover:text-white hover:border-red-800">
+        <button className="border border-gray-300 text-[13px] px-26 sm:px-10 py-4 text-red-700 font-semibold uppercase tracking-wide transition-all duration-300 hover:bg-red-800 hover:text-white hover:border-red-800">
           See All Insights
         </button>
       </div>
