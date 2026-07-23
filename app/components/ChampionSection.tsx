@@ -47,22 +47,22 @@ export default function ChampionSection() {
         <div className="order-1 lg:order-2">
           <h2
             className="
-            max-w-xl
-            text-[28px]
-            font-semibold
-            leading-[1.2]
-            tracking-tight
-            text-black
-            sm:text-[34px]
-            lg:text-[45px]
-            lg:leading-[1.15]
-            "
+    max-w-[300px]
+    sm:max-w-xl
+    text-[37px]
+    font-semibold
+    leading-[1.2]
+    tracking-tight
+    text-black
+    sm:text-[34px]
+    lg:text-[45px]
+    lg:leading-[1.15]
+  "
           >
             We champion the bold to
-            <br />
+            <br className="hidden sm:block" />
             achieve the extraordinary.
           </h2>
-
           <p
             className="
             mt-4
@@ -112,9 +112,10 @@ export default function ChampionSection() {
                 border-gray-300
                 px-4
                 py-2
-                text-[14px]
+                text-[13px]
                 font-semibold
-                text-red-700
+                text-red-600
+                sm:text-red-700
                 transition-all
                 duration-300
                 hover:border-red-700
@@ -127,11 +128,30 @@ export default function ChampionSection() {
               >
                 {item}
               </button>
+
             ))}
+            <span
+              className="
+    underline
+    decoration-gray-600
+    underline-offset-1
+    transition-all
+    group-hover:decoration-red-600
+    group-hover:text-red-600
+    text-gray-600
+    mt-3
+    block
+    text-[13px]
+    ml-5
+    md:hidden
+    "
+            >
+              View all
+            </span>
           </div>
 
           {/* View All */}
-          <button className="group mt-4 block text-[14px] text-gray-600 transition sm:mt-5 sm:text-[16px]">
+          <button className="group mt-4 block text-[14px] text-gray-600 transition sm:mt-5 sm:text-[16px] hidden sm:block">
             <span
               className="
     underline

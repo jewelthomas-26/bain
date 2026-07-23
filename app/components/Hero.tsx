@@ -142,44 +142,52 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="absolute bottom-0 left-0 z-20 w-full overflow-hidden">
-        <div className="relative mx-auto flex w-full max-w-7xl gap-3 sm:gap-4 overflow-x-auto  px-6 sm:px-8 no-scrollbar">
-          {slides.map((item, index) => (
-            <button
-              key={item.id}
-              onClick={() => setActive(index)}
-              className="relative flex-shrink-0 sm:flex-1 min-w-[110px] sm:min-w-[140px] pb-5 sm:pb-10 pt-5 sm:pt-8 text-left"
-            >
-              {/* Active horizontal line */}
-              {active === index && (
-                <div className="absolute top-0 left-0 h-[4px] sm:h-[5px] w-[80px] sm:w-[110px] bg-red-600" />
-              )}
+    {/* Bottom Navigation */}
+<div className="absolute bottom-0 left-0 z-20 w-full overflow-hidden mb-10 sm:md-0">
+  <div className="relative mx-auto flex w-full max-w-7xl overflow-x-auto px-6 sm:px-8 gap-x-6 sm:gap-0 no-scrollbar">
+    {slides.map((item, index) => (
+      <button
+        key={item.id}
+        onClick={() => setActive(index)}
+        className="
+          relative
+          flex-shrink-0
+          pb-5
+          pt-5
+          sm:flex-1
+          sm:pb-10
+          sm:pt-8
+          text-left
+        "
+      >
+        {/* Active horizontal line – now positioned relative to this button */}
+        {active === index && (
+          <div className="absolute top-0 left-0 h-[4px] sm:h-[5px] w-[80px] sm:w-[110px] bg-red-600" />
+        )}
 
-              <p
-                className={`
-                  text-xs
-                  sm:text-lg
-                  font-semibold
-                  whitespace-nowrap
-                  hover:text-white
-                  transition
-                  
-                  ${active === index ? "text-white" : "text-gray-300"}
-                `}
-              >
-                {item.tab}
-              </p>
-            </button>
-          ))}
-        </div>
-      </div>
+        <p
+          className={`
+            text-sm
+            sm:text-lg
+            font-semibold
+            whitespace-nowrap
+            hover:text-white
+            transition
+            ${active === index ? "text-white" : "text-gray-300"}
+          `}
+        >
+          {item.tab}
+        </p>
+      </button>
+    ))}
+  </div>
+</div>
 
       {/*
-        Scroll Button — previously "hidden sm:flex" (fully hidden on mobile).
-        Now shown on mobile too: centered horizontally, smaller circle, no
-        "Scroll" label (label only appears from sm: up). Desktop keeps its
-        original bottom-right position, gap, label, and icon size untouched.
+        Scroll Button — now shown on BOTH mobile and desktop. On mobile it's
+        centered horizontally with a smaller circle and no "Scroll" label
+        (label only appears from sm: up). Desktop keeps its original
+        bottom-right position, gap, label, and icon size untouched.
       */}
       <button
         onClick={() =>
@@ -191,7 +199,6 @@ export default function Hero() {
           absolute
           bottom-3
           left-1/2
-          hidden sm:block 
           -translate-x-1/2
           sm:bottom-6
           sm:left-auto
@@ -204,18 +211,20 @@ export default function Hero() {
           gap-2
           sm:gap-3
           cursor-pointer
-          
         "
       >
         <span className="hidden sm:block text-[14px] text-white/50">
           Scroll
         </span>
+  <ChevronDown className="w-8 h-8 block md:hidden text-gray-300" />
+        
 
         <div
           className="
             flex
             h-8
             w-8
+            hidden sm:block
             sm:h-10
             sm:w-10
             items-center
@@ -225,7 +234,7 @@ export default function Hero() {
             border-white/70
           "
         >
-          <ChevronDown className="w-4 h-4 sm:w-7 sm:h-7" />
+          <ChevronDown className="w-4 h-4 sm:w-9 sm:h-9" />
         </div>
       </button>
     </section>

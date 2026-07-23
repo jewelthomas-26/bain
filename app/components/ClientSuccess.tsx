@@ -80,15 +80,15 @@ export default function ClientSuccess() {
 
           {/* Row 1, Col 1: heading through stat cards */}
           <div>
-            <h1 className="text-4xl md:text-[55px] font-bold text-black mb-6 leading-tight">
+            <h1 className="text-[26px] md:text-[55px] font-semibold sm:font-bold text-black mb-6 leading-tight">
               Bold steps forward.
             </h1>
 
-            <p className="text-[19px] font-semibold text-black">
+            <p className="md:text-[19px] font-semibold text-black">
               Featured client success story
             </p>
 
-            <div className="h-[2px] bg-gray-300 my-2" />
+            <div className="h-[2px] bg-gray-300 sm:my-2 mb-3 sm:mb-0" />
 
             <h2 className="text-2xl md:text-[35px] font-bold text-black leading-tight">
               {slides[active].title}
@@ -102,7 +102,7 @@ export default function ClientSuccess() {
               {slides[active].stats.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-200 p-8 w-55 sm:w-56 text-black"
+                  className="bg-[#e7e7e7] p-8 w-55 sm:w-56 text-black"
                 >
                   <h3 className="text-5xl font-normal">{item.number}</h3>
                   <p className="mt-4 text-gray-700 leading-7">{item.text}</p>
@@ -128,7 +128,7 @@ export default function ClientSuccess() {
           </div>
 
           {/* Row 2, Col 1: Read Story (auto-flows under the text block only) */}
-          <button className="group inline-flex items-center gap-2 text-red-700 hover:text-red-800 font-semibold mb-25">
+          <button className="group inline-flex items-center gap-2 text-red-700 hover:text-red-800 font-semibold mb-10 md:mb-25">
             Read story
             <FilledArrowRight
               size={14}
@@ -138,7 +138,7 @@ export default function ClientSuccess() {
         </div>
 
         {/* Dots */}
-        <div className="flex justify-center gap-4 mt-5">
+        <div className="flex justify-center gap-4 sm:mt-5 ">
           {slides.map((_, index) => (
             <button
               key={index}

@@ -29,6 +29,7 @@ body {
   from {
     transform: scale(1);
   }
+
   to {
     transform: scale(1.08);
   }
@@ -37,6 +38,7 @@ body {
 .animate-hero-zoom {
   animation: heroZoom 8s ease-out forwards;
 }
+
 @theme {
   --animate-slide-left: slideLeft 0.8s ease-out forwards;
 
@@ -45,6 +47,7 @@ body {
       opacity: 0;
       transform: translateX(-40px);
     }
+
     100% {
       opacity: 1;
       transform: translateX(0);
@@ -55,11 +58,22 @@ body {
 @font-face {
   font-family: "Tiempos Text";
   src: url("/fonts/TiemposText-Regular.woff2") format("woff2"),
-       url("/fonts/TiemposText-Regular.woff") format("woff");
+    url("/fonts/TiemposText-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
 
 .font-tiempos {
   font-family: "Tiempos Text", Georgia, serif;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
