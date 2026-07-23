@@ -46,8 +46,8 @@ const LatestInsights = () => {
     <section className="max-w-7xl mx-auto px-6 py-16">
       {/* Heading */}
       <div className="flex items-center justify-center gap-6 mb-14 ">
-        <div className="flex-1 h-px bg-gray-300"></div>
-        <h2 className="text-[25px] md:text-[30px] font-bold text-gray-900 text-center">
+        <div className="flex-1 h-px bg-gray-300 "></div>
+        <h2 className="text-[25px] md:text-[30px] font-bold text-gray-900 text-center pr-10 pl-10 sm:pl-0 sm:pr-0">
           Our Latest <br className="block md:hidden" /> Insights
         </h2>
         <div className="flex-1 h-px bg-gray-300"></div>
