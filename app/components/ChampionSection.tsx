@@ -61,7 +61,7 @@ export default function ChampionSection() {
             style={{ fontFamily: "Graphik, sans-serif" }}
           >
             We champion the bold to
-            <br className="hidden sm:block" />
+            <br className="md:hidden" />
             achieve the extraordinary.
           </h2>
           <p
