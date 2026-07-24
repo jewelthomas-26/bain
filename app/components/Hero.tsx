@@ -42,63 +42,54 @@ const slides = [
 export default function Hero() {
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [autoPlay, setAutoPlay] = useState(true);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const startSlideTimer = () => {
-    // 1. Clear any existing timers
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-    }
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-
-    // 2. Reset progress
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (intervalRef.current) clearInterval(intervalRef.current);
     setProgress(0);
 
-    // 3. Start interval to update progress every 50ms
     intervalRef.current = setInterval(() => {
       setProgress((prev) => {
-        const next = prev + 0.01; // 100 steps = 5 seconds
+        const next = prev + 0.01;
         if (next >= 1) {
-          // Stop interval – we’ll let the timeout trigger the slide change
           clearInterval(intervalRef.current!);
           intervalRef.current = null;
-          return 1; // keep progress at 100% until timeout fires
+          return 1;
         }
         return next;
       });
     }, 50);
 
-    // 4. Schedule the actual slide change after 5 seconds
     timeoutRef.current = setTimeout(() => {
-      // Advance to the next slide (circular)
-      setActive((prev) => (prev + 1) % slides.length);
-      // The useEffect below will restart the whole timer for the new slide
+      if (autoPlay) {
+        setActive((prev) => (prev + 1) % slides.length);
+      }
     }, 5000);
   };
 
-  // Restart timer whenever the active tab changes (auto‑advance or manual click)
   useEffect(() => {
-    startSlideTimer();
+    if (autoPlay) {
+      startSlideTimer();
+    } else {
+      // Stop all timers, but keep progress as is (should be 1 from manual click)
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    }
     return () => {
-      // Cleanup on unmount or before effect re‑runs
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active]);
+  }, [active, autoPlay]);
 
   const handleTabClick = (index: number) => {
-    if (index === active) {
-      // Clicking the same tab restarts its progress bar
-      startSlideTimer();
-    } else {
-      setActive(index); // useEffect will restart timer with new active
-    }
+    // Stop auto‑play, switch tab, and fill the bar completely
+    setAutoPlay(false);
+    setActive(index);
+    setProgress(1);
   };
 
   const slide = slides[active];
