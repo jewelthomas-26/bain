@@ -55,8 +55,8 @@ export default function ChampionSection() {
             tracking-[2]
             text-black
             sm:text-[34px]
-            lg:text-[37px]
-            lg:leading-[1.15]
+            lg:text-[40px]
+            lg:leading-[1.25]
             "
             style={{ fontFamily: "Graphik, sans-serif" }}
           >
@@ -70,7 +70,7 @@ export default function ChampionSection() {
             max-w-lg
             text-[18px]
             leading-relaxed
-            text-gray-600
+            text-gray-700
             sm:mt-6
             sm:text-[20px]
             "
@@ -94,7 +94,7 @@ export default function ChampionSection() {
           </div>
 
           <div className="mt-6 flex items-baseline gap-2 sm:mt-8">
-            <p className="text-[17px] font-semibold text-black sm:text-[18px]">
+            <p style={{ fontFamily: "Graphik, sans-serif" }} className="text-[17px] font-semibold text-black sm:text-[18px]">
               1. What is your industry?
             </p>
             <span className="text-[13px] text-gray-500 sm:text-[14px]">
