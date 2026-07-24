@@ -641,7 +641,7 @@ export default function Navbar() {
         </div>
 
         {/* ---------- Main Nav ---------- */}
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-8 py-3 sm:py-4 w-full">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-3 sm:py-4 w-full">
           <div className="flex items-center gap-3 sm:gap-10 min-w-0">
             <div className="flex items-center gap-3 sm:gap-6 shrink-0">
               <button
