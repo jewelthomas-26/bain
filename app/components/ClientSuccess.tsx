@@ -30,7 +30,7 @@ const slides = [
       },
       {
         number: "40%",
-        text: "increase in engagement",
+        text: "pieces of information and research analyzed daily",
       },
     ],
   },
@@ -44,7 +44,7 @@ const slides = [
       },
       {
         number: "12",
-        text: "countries launched",
+        text: "pieces of information and research analyzed daily",
       },
     ],
   },
