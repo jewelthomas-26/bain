@@ -55,14 +55,14 @@ export default function ChampionSection() {
             tracking-[2]
             text-black
             sm:text-[34px]
-            lg:text-[45px]
+            lg:text-[37px]
             lg:leading-[1.15]
             "
             style={{ fontFamily: "Graphik, sans-serif" }}
           >
-            We champion the bold to
+            We champion the bold to 
             <br className="md:hidden" />
-            achieve the extraordinary.
+             achieve the extraordinary.
           </h2>
           <p
             className="
