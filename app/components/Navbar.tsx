@@ -728,7 +728,7 @@ export default function Navbar() {
             <span className={`h-5 sm:h-6 w-px ${isWhite ? "bg-gray-300" : "bg-white/60"}`} />
 
             <div className="relative group/bookmark">
-              <button className={isWhite ? "text-gray-700" : "text-white"}>
+              <button className={isWhite ? "text-gray-500" : "text-white"}>
                 <Bookmark size={22} strokeWidth={1.75} className="sm:w-[23px] sm:h-[23px] mt-2" />
               </button>
               <div className="absolute top-full left-1/2 mt-2.5 -translate-x-1/2 opacity-0 invisible group-hover/bookmark:opacity-100 group-hover/bookmark:visible transition-all duration-300 z-50 pointer-events-none">
