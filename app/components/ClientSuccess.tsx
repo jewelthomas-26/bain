@@ -90,7 +90,7 @@ export default function ClientSuccess() {
 
             <div className="h-[2px] bg-gray-300 sm:my-2 mb-3 sm:mb-0" />
 
-            <h2 className="text-2xl md:text-[35px] font-bold text-black leading-tight">
+            <h2 className="text-2xl md:text-[35px] font-bold text-black leading-tight sm:mt-2 tracking-[2]">
               {slides[active].title}
             </h2>
 
