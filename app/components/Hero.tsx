@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 
@@ -41,6 +41,65 @@ const slides = [
 
 export default function Hero() {
   const [active, setActive] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const startSlideTimer = () => {
+    // 1. Clear any existing timers
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
+    // 2. Reset progress
+    setProgress(0);
+
+    // 3. Start interval to update progress every 50ms
+    intervalRef.current = setInterval(() => {
+      setProgress((prev) => {
+        const next = prev + 0.01; // 100 steps = 5 seconds
+        if (next >= 1) {
+          // Stop interval – we’ll let the timeout trigger the slide change
+          clearInterval(intervalRef.current!);
+          intervalRef.current = null;
+          return 1; // keep progress at 100% until timeout fires
+        }
+        return next;
+      });
+    }, 50);
+
+    // 4. Schedule the actual slide change after 5 seconds
+    timeoutRef.current = setTimeout(() => {
+      // Advance to the next slide (circular)
+      setActive((prev) => (prev + 1) % slides.length);
+      // The useEffect below will restart the whole timer for the new slide
+    }, 5000);
+  };
+
+  // Restart timer whenever the active tab changes (auto‑advance or manual click)
+  useEffect(() => {
+    startSlideTimer();
+    return () => {
+      // Cleanup on unmount or before effect re‑runs
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active]);
+
+  const handleTabClick = (index: number) => {
+    if (index === active) {
+      // Clicking the same tab restarts its progress bar
+      startSlideTimer();
+    } else {
+      setActive(index); // useEffect will restart timer with new active
+    }
+  };
 
   const slide = slides[active];
 
@@ -61,11 +120,7 @@ export default function Hero() {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
-      {/* Main Content — uses the SAME max-w-7xl + px container as the bottom
-          nav below, so the left edge of the text always lines up with the
-          left edge of "Win with AI" no matter the screen width. A percentage
-          margin (e.g. ml-[18%]) drifts relative to a fixed container as the
-          viewport resizes, which is what was causing the misalignment. */}
+      {/* Main Content */}
       <div className="relative z-10 h-full w-full flex items-center">
         <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
           <div className="max-w-[90%] sm:max-w-lg md:max-w-xl lg:max-w-[600px]">
@@ -88,17 +143,6 @@ export default function Hero() {
               {slide.title}
             </h1>
 
-            {/*
-              MOBILE: button is left as a normal (non-flex) inline flow, so the
-              long CTA text wraps like a paragraph and the arrow, being an
-              inline-block element right after it in the markup, simply
-              flows onto the end of the last wrapped line — exactly like the
-              reference screenshot.
-
-              DESKTOP (sm and up): switches back to the original flex layout
-              (flex + flex-wrap + items-center + gap-5) so nothing changes
-              there — text and arrow sit side by side with a fixed gap.
-            */}
             <button
               key={slide.id}
               className="
@@ -142,53 +186,67 @@ export default function Hero() {
         </div>
       </div>
 
-    {/* Bottom Navigation */}
-<div className="absolute bottom-0 left-0 z-20 w-full overflow-hidden mb-10 sm:md-0">
-  <div className="relative mx-auto flex w-full max-w-7xl overflow-x-auto px-6 sm:px-8 gap-x-6 sm:gap-0 no-scrollbar">
-    {slides.map((item, index) => (
-      <button
-        key={item.id}
-        onClick={() => setActive(index)}
-        className="
-          relative
-          flex-shrink-0
-          pb-5
-          pt-5
-          sm:flex-1
-          sm:pb-10
-          sm:pt-8
-          text-left
-        "
-      >
-        {/* Active horizontal line – now positioned relative to this button */}
-        {active === index && (
-          <div className="absolute top-0 left-0 h-[4px] sm:h-[5px] w-[80px] sm:w-[110px] bg-red-600" />
-        )}
+      {/* Bottom Navigation */}
+      <div className="absolute bottom-0 left-0 z-20 w-full overflow-hidden mb-10 sm:md-0">
+        <div className="relative mx-auto w-full max-w-7xl px-6 sm:px-8">
+          {/* Mobile scrollable tabs */}
+          <div className="flex sm:hidden overflow-x-auto gap-x-6 no-scrollbar">
+            {slides.map((item, index) => (
+              <button
+                key={item.id}
+                onClick={() => handleTabClick(index)}
+                className="relative flex-shrink-0 pb-5 pt-5 text-left"
+              >
+                {active === index && (
+                  <div
+                    className="absolute top-0 left-0 h-[4px] bg-red-600 transition-[width] duration-100 ease-linear"
+                    style={{ width: `${progress * 100}%` }}
+                  />
+                )}
+                <p
+                  className={`
+                    text-sm font-semibold whitespace-nowrap hover:text-white transition
+                    ${active === index ? "text-white" : "text-gray-300"}
+                  `}
+                >
+                  {item.tab}
+                </p>
+              </button>
+            ))}
+          </div>
 
-        <p
-          className={`
-            text-sm
-            sm:text-lg
-            font-semibold
-            whitespace-nowrap
-            hover:text-white
-            transition
-            ${active === index ? "text-white" : "text-gray-300"}
-          `}
-        >
-          {item.tab}
-        </p>
-      </button>
-    ))}
-  </div>
-</div>
+          {/* Desktop grid – 4 equal columns */}
+          <div className="hidden sm:grid grid-cols-4 gap-0">
+            {slides.map((item, index) => (
+              <button
+                key={item.id}
+                onClick={() => handleTabClick(index)}
+                className="relative pb-10 pt-8 text-left"
+              >
+                {active === index && (
+                  <div
+                    className="absolute top-0 left-0 h-[5px] bg-red-600 transition-[width] duration-100 ease-linear"
+                    style={{
+                      width: `${progress * 110}px`,
+                      maxWidth: "110px",
+                    }}
+                  />
+                )}
+                <p
+                  className={`
+                    text-base md:text-lg font-semibold whitespace-nowrap hover:text-white transition
+                    ${active === index ? "text-white" : "text-gray-300"}
+                  `}
+                >
+                  {item.tab}
+                </p>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
 
-      {/*
-        Scroll Button — now shown on BOTH mobile and desktop. On mobile it's
-        centered horizontally with a smaller circle and no "Scroll" label
-        (label only appears from sm: up). Desktop keeps its original
-        bottom-right position, gap, label, and icon size untouched.
-      */}
+      {/* Scroll Button */}
       <button
         onClick={() =>
           document.getElementById("next-section")?.scrollIntoView({
@@ -217,8 +275,7 @@ export default function Hero() {
         <span className="hidden sm:block text-[14px] text-white/50">
           Scroll
         </span>
-  <ChevronDown className="w-8 h-8 block md:hidden text-gray-300" />
-        
+        <ChevronDown className="w-8 h-8 block md:hidden text-gray-300" />
 
         <div
           className="
