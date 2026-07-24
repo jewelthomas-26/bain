@@ -467,7 +467,7 @@ export default function Navbar() {
                   }`}
               >
                 <Globe size={15} className={langOpen ? "text-red-700" : isWhite ? "text-red-700" : "text-white"} />
-                <span className="hover:text-red-500 tracking-wider">Global | English</span>
+                <span className="hover:text-red-700 tracking-wider">Global | English</span>
                 <FilledArrow
                   direction={langOpen ? "up" : "down"}
                   className={langOpen ? "text-red-600" : isWhite ? "text-black" : "text-white"}
@@ -483,8 +483,8 @@ export default function Navbar() {
                 className={`flex items-center gap-1.5 uppercase transition-colors ${savedOpen ? "text-red-600" : isWhite ? "text-gray-700" : "text-white"
                   }`}
               >
-                <Folder size={15} className={savedOpen ? "text-red-600" : isWhite ? "text-red-600" : "text-white"} />
-                <span className="hover:text-red-500 tracking-wider">Saved Items</span>
+                <Folder size={15} className={savedOpen ? "text-red-700" : isWhite ? "text-red-700" : "text-white"} />
+                <span className="hover:text-red-700 tracking-wider">Saved Items</span>
                 <FilledArrow
                   direction={savedOpen ? "up" : "down"}
                   className={savedOpen ? "text-red-600" : isWhite ? "text-black" : "text-white"}
