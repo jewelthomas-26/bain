@@ -62,7 +62,7 @@ export default function AIEvolutionSection() {
             <button
               onClick={handlePlay}
               aria-label="Play video"
-              className="mx-auto mt-5 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/80 transition hover:scale-110"
+              className="mx-auto mt-5 flex h-18 w-18 shrink-0 items-center justify-center rounded-full bg-white/80 transition hover:scale-110"
             >
               <PlayIconSharp size={36} className="ml-1" />
             </button>
@@ -110,7 +110,7 @@ export default function AIEvolutionSection() {
             <button
               onClick={handlePlay}
               aria-label="Play video"
-              className="absolute left-1/2 top-1/2 flex h-12 w-12 md:h-18 md:w-18 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 transition hover:scale-110"
+              className="absolute left-1/2 top-1/2 flex h-12 w-12 md:h-18 md:w-18 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 hover:bg-white"
             >
               <PlayIconSharp size={34} className="ml-1" />
             </button>
