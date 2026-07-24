@@ -85,7 +85,7 @@ export default function ChampionSection() {
               src="/champion/champion.jpg"
               alt="Champion"
               className="
-              h-40
+              h-52
               w-full
               object-cover
               sm:h-56
