@@ -707,12 +707,18 @@ export default function Navbar() {
           {/* Right: explore/search + bookmark */}
           <div className="flex items-center gap-3 sm:gap-5 shrink-0">
             <button
-              className={`hidden items-center gap-2 text-[14px] tracking-[1px] font-medium sm:flex ${isWhite ? "text-gray-500" : "text-white"
-                }`}
-            >
-              Explore
-              <Search size={23} />
-            </button>
+  className={`hidden items-center gap-2 text-[14px] tracking-[1px] font-medium sm:flex ${isWhite ? "text-gray-500" : "text-white"
+    }`}
+>
+  <span
+    className={`overflow-hidden whitespace-nowrap transition-all duration-300 ease-in-out ${
+      showTopBar ? "max-w-[80px] opacity-100" : "max-w-0 opacity-0"
+    }`}
+  >
+    Explore
+  </span>
+  <Search size={23} />
+</button>
 
             {/* Mobile Search Icon */}
             <button className={`block sm:hidden ${isWhite ? "text-gray-700" : "text-white"}`}>
