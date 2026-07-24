@@ -3,7 +3,7 @@ import React from "react";
 const CTASection = () => {
   return (
     <>
-      <section className="bg-[#c50707] overflow-hidden">
+      <section className="bg-[#cc0000] overflow-hidden">
         <div className="max-w-[1700px] mx-auto relative grid grid-cols-1 lg:grid-cols-2 min-h-[430px] lg:min-h-[430px]">
           {/* Desktop Center Divider */}
           <div className="hidden lg:block absolute left-1/2 top-[60px] bottom-[60px] w-[0.1px] bg-black -translate-x-1/2" />
