@@ -45,7 +45,7 @@ const LatestInsights = () => {
   return (
     <section className="max-w-7xl mx-auto px-6 py-16">
       {/* Heading */}
-      <div className="flex items-center justify-center gap-6 mb-14 ">
+      <div className="flex items-center justify-center gap-6 sm:mb-14 ">
         <div className="flex-1 h-px bg-gray-300 "></div>
         <h2 className="text-[28px] md:text-[30px] font-bold text-gray-900 text-center pr-10 pl-10 sm:pl-0 sm:pr-0" style={{ fontFamily: "Graphik, sans-serif" }}>
           Our Latest <br className="block md:hidden" /> Insights
@@ -106,7 +106,7 @@ const LatestInsights = () => {
       <div className="block lg:hidden mx-1 h-px bg-gray-300"></div>
 
       {/* Button */}
-      <div className="flex justify-center mt-16">
+      <div className="flex justify-center mt-6 sm:mt-16">
         <button className="border border-gray-300 text-[13px] px-26 sm:px-10 py-4 text-red-700 font-semibold uppercase tracking-wide transition-all duration-300 hover:bg-red-800 hover:text-white hover:border-red-800">
           See All Insights
         </button>
