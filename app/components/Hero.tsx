@@ -210,6 +210,7 @@ export default function Hero() {
           items-center
           gap-2
           sm:gap-3
+          sm:mb-13 
           cursor-pointer
         "
       >
